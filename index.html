@@ -6,393 +6,215 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0a0f">
-<meta name="description" content="iRacing Late Model Stock Setup Advisor — Based on the official LMS User Manual V3">
+<meta name="description" content="iRacing Late Model Stock Setup Advisor">
 <title>The Allison Crew Chief</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --gold:#c8a03c;--gold-dim:rgba(200,160,60,0.15);--gold-glow:rgba(200,160,60,0.25);
-  --red:#dc5028;--blue:#3c78c8;--green:#3cb450;
-  --bg:#0a0a0f;--surface:rgba(255,255,255,0.02);--border:rgba(255,255,255,0.06);
-  --text:#e8e4dc;--text-dim:#8a8478;--text-faint:#6a665e;--text-ghost:#4a4840;
-}
+:root{--red:#e82a1c;--red-dark:#b81e14;--gold:#d4a827;--blue:#2874c8;--green:#28a844;--bg:#0c0c0e;--carbon:rgba(255,255,255,0.015);--surface:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.08);--text:#f0ece4;--text-dim:#9a958c;--text-faint:#6a665e}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow-x:hidden}
-body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text)}
+body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--text)}
 
-.bg{position:fixed;inset:0;z-index:0;background:linear-gradient(135deg,#0a0a0f 0%,#111118 40%,#0d0d14 100%)}
-.bg .g1{position:absolute;top:-30%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(200,160,60,0.06) 0%,transparent 70%);border-radius:50%;filter:blur(60px)}
-.bg .g2{position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(180,30,30,0.04) 0%,transparent 70%);border-radius:50%;filter:blur(60px)}
+/* === BACKGROUND === */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0c0c0e}
+/* Carbon fiber texture */
+.bg::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3' height='3' fill='rgba(255,255,255,0.02)'/%3E%3Crect x='3' y='3' width='3' height='3' fill='rgba(255,255,255,0.02)'/%3E%3C/svg%3E");opacity:.6}
+/* Racing stripe left */
+.bg .stripe-l{position:absolute;top:0;left:24px;width:4px;height:100%;background:linear-gradient(180deg,var(--red) 0%,rgba(232,42,28,0.1) 60%,transparent 100%)}
+.bg .stripe-l2{position:absolute;top:0;left:32px;width:2px;height:100%;background:linear-gradient(180deg,var(--red) 0%,rgba(232,42,28,0.06) 50%,transparent 100%)}
+/* Checkered corner */
+.bg .checker{position:absolute;top:0;right:0;width:120px;height:120px;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='10' height='10' fill='white'/%3E%3Crect x='10' y='10' width='10' height='10' fill='white'/%3E%3C/svg%3E")}
+/* Red glow top */
+.bg .glow-r{position:absolute;top:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(232,42,28,0.08) 0%,transparent 60%);border-radius:50%;filter:blur(80px)}
+.bg .glow-g{position:absolute;bottom:-20%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(212,168,39,0.04) 0%,transparent 60%);border-radius:50%;filter:blur(60px)}
 
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-@keyframes rev{0%{transform:rotate(-120deg)}50%{transform:rotate(30deg)}100%{transform:rotate(-10deg)}}
+@keyframes rev{0%{transform:rotate(-130deg)}40%{transform:rotate(40deg)}70%{transform:rotate(-5deg)}100%{transform:rotate(15deg)}}
+@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes rpmSweep{0%{width:0}50%{width:100%}100%{width:65%}}
 
 .app{position:relative;z-index:1;min-height:100vh;padding:20px 16px env(safe-area-inset-bottom,40px);max-width:820px;margin:0 auto}
 
-/* Header */
-.hdr{text-align:center;margin-bottom:36px;animation:fadeIn .6s ease both}
-.tach{width:68px;height:68px;margin:0 auto 14px;border-radius:50%;border:2px solid rgba(200,160,60,0.4);background:rgba(200,160,60,0.05);display:flex;align-items:center;justify-content:center}
-.ttl{font-family:'Oswald',sans-serif;font-size:clamp(28px,6vw,42px);font-weight:700;letter-spacing:3px;text-transform:uppercase;line-height:1.1;background:linear-gradient(135deg,#c8a03c 0%,#e8d080 50%,#c8a03c 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite}
-.sub{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);margin-top:8px}
-.sub2{font-size:11px;color:var(--text-ghost);margin-top:4px}
-.div{width:60px;height:1px;margin:14px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+/* === HEADER === */
+.hdr{text-align:center;margin-bottom:32px;animation:fadeIn .6s ease both;position:relative}
+/* Checkered flag bar */
+.hdr .flag-bar{height:6px;margin:0 -16px 20px;background-image:url("data:image/svg+xml,%3Csvg width='12' height='6' viewBox='0 0 12 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='6' height='6' fill='%23e8e4dc'/%3E%3Crect x='6' width='6' height='6' fill='%231a1a1a'/%3E%3C/svg%3E");background-size:12px 6px;opacity:.15}
+.hdr .number{font-family:'Teko',sans-serif;font-size:80px;font-weight:700;line-height:.85;color:transparent;-webkit-text-stroke:2px rgba(232,42,28,0.2);letter-spacing:-2px;margin-bottom:-14px;user-select:none}
+.ttl{font-family:'Teko',sans-serif;font-size:clamp(36px,8vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;line-height:.95;color:var(--text);position:relative;display:inline-block}
+.ttl .accent{display:block;background:linear-gradient(90deg,var(--red) 0%,#ff4a38 50%,var(--red) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+.sub{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--text-faint);margin-top:6px}
+/* Red line under header */
+.hdr .redline{height:3px;width:80px;margin:12px auto 0;background:linear-gradient(90deg,transparent,var(--red),transparent);border-radius:2px}
+.hdr .manual-tag{display:inline-block;margin-top:10px;padding:3px 10px;border:1px solid rgba(232,42,28,0.2);border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,42,28,0.5)}
 
-/* Tabs */
-.tabs{display:flex;justify-content:center;gap:4px;border-bottom:1px solid var(--border);margin-bottom:24px;animation:fadeIn .6s ease .1s both}
-.tab{padding:10px 22px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;background:0;color:var(--text-faint);border-bottom:2px solid transparent;transition:.2s}
-.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+/* === RPM BAR === */
+.rpm-bar{height:3px;margin:0 -16px 24px;background:rgba(255,255,255,0.03);position:relative;overflow:hidden}
+.rpm-bar .fill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,var(--green),var(--gold) 50%,var(--red) 85%,#ff0000);animation:rpmSweep 2s ease-out both;border-radius:0 2px 2px 0}
 
-/* Labels */
-.lbl{display:block;margin-bottom:10px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim)}
+/* === TABS === */
+.tabs{display:flex;gap:0;margin-bottom:24px;animation:fadeIn .6s ease .1s both;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.tab{flex:1;padding:12px 16px;border:none;cursor:pointer;font-family:'Teko',sans-serif;font-size:16px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--surface);color:var(--text-faint);transition:.2s;position:relative}
+.tab.on{background:rgba(232,42,28,0.12);color:var(--red)}
+.tab.on::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red)}
 
-/* Pills */
+/* === LABELS === */
+.lbl{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-family:'Teko',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim)}
+.lbl::before{content:"";width:3px;height:14px;background:var(--red);border-radius:1px}
+
+/* === PILLS === */
 .pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{padding:10px 18px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#a09a8e;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:.2s;user-select:none}
-.pill:active{transform:scale(.97)}
-.pill.on{background:var(--gold-dim);border-color:var(--gold);color:var(--gold)}
-.pill.loose.on{background:rgba(220,80,40,0.15);border-color:var(--red);color:var(--red)}
-.pill.tight.on{background:rgba(60,120,200,0.15);border-color:var(--blue);color:var(--blue)}
-.pill.neutral.on{background:rgba(60,180,80,0.15);border-color:var(--green);color:var(--green)}
-.pill.sm{font-size:12px;padding:8px 14px}
+.pill{padding:10px 20px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#908a80;font-family:'Teko',sans-serif;font-size:16px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:.2s;user-select:none;position:relative;overflow:hidden}
+.pill:active{transform:scale(.96)}
+.pill.on{background:rgba(212,168,39,0.12);border-color:var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(212,168,39,0.1)}
+.pill.loose.on{background:rgba(232,42,28,0.12);border-color:var(--red);color:var(--red);box-shadow:0 0 12px rgba(232,42,28,0.15)}
+.pill.tight.on{background:rgba(40,116,200,0.12);border-color:var(--blue);color:var(--blue);box-shadow:0 0 12px rgba(40,116,200,0.1)}
+.pill.neutral.on{background:rgba(40,168,68,0.12);border-color:var(--green);color:var(--green)}
+.pill.sm{font-size:14px;padding:8px 14px}
+/* Diagonal stripe on active pill */
+.pill.on::before{content:"";position:absolute;top:0;right:0;width:20px;height:100%;background:linear-gradient(135deg,transparent 40%,currentColor 40%,currentColor 45%,transparent 45%);opacity:.08}
 
-/* Select */
-.sel{width:100%;padding:12px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c8a03c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;transition:.2s}
-.sel:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 2px rgba(200,160,60,0.15)}
-.sel option{background:#1a1a24;color:var(--text)}
+/* === SEVERITY === */
+.sev-btn{padding:12px 16px;border-radius:4px;cursor:pointer;transition:.2s;display:flex;flex-direction:column;gap:3px;min-width:95px;user-select:none;position:relative;overflow:hidden}
+.sev-btn:active{transform:scale(.96)}
+.sev-btn .sl{font-family:'Teko',sans-serif;font-size:17px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.sev-btn .sd{font-family:'Rajdhani',sans-serif;font-size:11px;line-height:1.3;font-weight:400}
 
-/* Buttons */
-.go{width:100%;padding:16px;border:0;border-radius:8px;font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.3s;background:linear-gradient(135deg,#c8a03c 0%,#a07820 100%);color:#0a0a0f;margin-top:12px;box-shadow:0 4px 16px rgba(200,160,60,0.2)}
-.go:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
-.go:active:not(:disabled){transform:scale(.98)}
-.rst{width:100%;padding:12px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:0;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint);cursor:pointer;transition:.2s}
+/* === SELECT === */
+.sel{width:100%;padding:12px 16px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:500;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e8e4dc' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}.sel:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 2px rgba(232,42,28,0.15)}.sel option{background:#141416;color:var(--text)}
 
-/* Cards */
-.card{margin-bottom:20px;padding:20px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
-.card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.card-hdr h3{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:1px}
-.sug{padding:14px 16px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:.25s}
-.sug:active,.sug:hover{background:rgba(200,160,60,0.08);border-color:var(--gold-glow)}
-.sug .num{color:var(--gold);font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;opacity:.6;min-width:22px}
-.sug .adj{color:var(--gold);font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px}
-.sug .tip{color:#b8b4aa;font-size:13px;line-height:1.65;margin-left:32px;margin-top:4px}
+/* === GO BUTTON === */
+.go{width:100%;padding:16px;border:0;border-radius:4px;font-family:'Teko',sans-serif;font-size:18px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s;background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);color:white;margin-top:14px;box-shadow:0 4px 20px rgba(232,42,28,0.3);position:relative;overflow:hidden}
+.go::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background-image:url("data:image/svg+xml,%3Csvg width='12' height='6' viewBox='0 0 12 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='6' height='6' fill='rgba(255,255,255,0.05)'/%3E%3Crect x='6' width='6' height='6' fill='transparent'/%3E%3C/svg%3E");background-size:12px 6px;opacity:.4}
+.go:disabled{opacity:.25;cursor:not-allowed;box-shadow:none}
+.go:active:not(:disabled){transform:scale(.98);box-shadow:0 2px 10px rgba(232,42,28,0.4)}
 
-.ibox{padding:14px 16px;border-radius:8px;margin-bottom:10px}
-.ibox .il{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.ibox p{color:#d4d0c8;font-size:13px;line-height:1.6}
+.rst{width:100%;padding:12px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;background:0;font-family:'Teko',sans-serif;font-size:15px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);cursor:pointer}
 
-.nbox{padding:18px 20px;border-radius:10px;background:rgba(60,180,80,0.06);border:1px solid rgba(60,180,80,0.2)}
-.nbox h4{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.nbox p{color:var(--text-dim);font-size:14px;line-height:1.6}
+/* === CARDS === */
+.card{margin-bottom:20px;padding:20px 16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;position:relative;overflow:hidden}
+/* Carbon fiber texture on cards */
+.card::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3' height='3' fill='rgba(255,255,255,0.01)'/%3E%3Crect x='3' y='3' width='3' height='3' fill='rgba(255,255,255,0.01)'/%3E%3C/svg%3E");pointer-events:none}
+/* Red left border accent */
+.card::after{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red);border-radius:3px 0 0 3px}
+.card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:6px;position:relative;z-index:1}
+.card-hdr h3{font-family:'Teko',sans-serif;font-size:22px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
 
-.sep{width:100%;height:1px;margin:16px 0 24px;background:linear-gradient(90deg,transparent,rgba(200,160,60,0.3),transparent)}
-.sec-lbl{font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;text-align:center}
+.sev-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:3px;margin-bottom:14px;position:relative;z-index:1}
+.sev-badge span{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.intro-text{color:#9a9688;font-size:14px;line-height:1.6;margin-bottom:14px;font-style:italic;position:relative;z-index:1;border-left:2px solid rgba(255,255,255,0.06);padding-left:12px}
+
+.sug{padding:14px 16px;margin-bottom:8px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.05);border-radius:4px;transition:.25s;position:relative;z-index:1}
+.sug:active,.sug:hover{background:rgba(232,42,28,0.05);border-color:rgba(232,42,28,0.2)}
+.sug .num{color:var(--red);font-family:'Teko',sans-serif;font-size:16px;font-weight:700;min-width:24px;opacity:.6}
+.sug .adj{color:var(--text);font-family:'Teko',sans-serif;font-size:17px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.sug .tip{color:#a8a49a;font-size:13px;line-height:1.65;margin-left:34px;margin-top:4px;font-family:'Rajdhani',sans-serif}
+
+.ibox{padding:14px 16px;border-radius:4px;margin-bottom:10px;position:relative;z-index:1}
+.ibox .il{font-family:'Teko',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.ibox p{color:#d4d0c8;font-size:14px;line-height:1.6;font-family:'Rajdhani',sans-serif;font-weight:500}
+
+.nbox{padding:18px 20px;border-radius:6px;background:rgba(40,168,68,0.06);border:1px solid rgba(40,168,68,0.2);border-left:3px solid var(--green)}
+.nbox h4{font-family:'Teko',sans-serif;font-size:18px;font-weight:600;letter-spacing:1.5px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:8px;text-transform:uppercase}
+.nbox p{color:var(--text-dim);font-size:14px;line-height:1.6;font-family:'Rajdhani',sans-serif}
+
+.sep{width:100%;height:1px;margin:16px 0 20px;background:linear-gradient(90deg,var(--red),rgba(232,42,28,0.3),transparent)}
+.sec-lbl{font-family:'Teko',sans-serif;font-size:16px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px}
+.sec-lbl::before,.sec-lbl::after{content:"";flex:1;height:1px;max-width:60px;background:linear-gradient(90deg,transparent,rgba(232,42,28,0.3))}
+.sec-lbl::after{background:linear-gradient(270deg,transparent,rgba(232,42,28,0.3))}
 
 details{margin-bottom:20px}
-details summary{font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);cursor:pointer;padding:12px 0}
-details .ref{padding:16px;background:var(--surface);border:1px solid rgba(255,255,255,0.04);border-radius:8px;font-size:12px;color:#7a7668;line-height:1.8}
+details summary{font-family:'Teko',sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);cursor:pointer;padding:12px 0}
+details .ref{padding:16px;background:var(--surface);border:1px solid rgba(255,255,255,0.04);border-radius:4px;font-size:13px;color:#7a7668;line-height:1.8;font-family:'Rajdhani',sans-serif;font-weight:500}
 details .ref strong{color:var(--text-dim)}
 
-.ftr{text-align:center;margin-top:24px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#3a3830}
+.ftr{text-align:center;margin-top:24px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#2a2820}
+/* Checkered footer bar */
+.ftr-bar{height:6px;margin:20px -16px 0;background-image:url("data:image/svg+xml,%3Csvg width='12' height='6' viewBox='0 0 12 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='6' height='6' fill='%23e8e4dc'/%3E%3Crect x='6' width='6' height='6' fill='%231a1a1a'/%3E%3C/svg%3E");background-size:12px 6px;opacity:.1}
 
-.gap{margin-bottom:22px}
-.hide{display:none!important}
-
-/* Install banner */
-.ibanner{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:16px;background:linear-gradient(180deg,transparent,#0a0a0f 30%)}
-.ibtn{display:block;width:100%;max-width:400px;margin:0 auto;padding:14px;border:1px solid rgba(200,160,60,0.4);border-radius:10px;background:rgba(200,160,60,0.1);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--gold);cursor:pointer;text-align:center}
+.gap{margin-bottom:22px}.hide{display:none!important}
+.ibanner{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:16px;background:linear-gradient(180deg,transparent,#0c0c0e 30%)}
+.ibtn{display:block;width:100%;max-width:400px;margin:0 auto;padding:14px;border:1px solid rgba(232,42,28,0.4);border-radius:4px;background:rgba(232,42,28,0.1);font-family:'Teko',sans-serif;font-size:16px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);cursor:pointer;text-align:center}
 </style>
 </head>
 <body>
-
-<div class="bg"><div class="g1"></div><div class="g2"></div></div>
-
-<div class="app" id="app">
-  <!-- Header -->
-  <div class="hdr">
-    <div class="tach">
-      <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
-        <path d="M18 4C10.268 4 4 10.268 4 18s6.268 14 14 14 14-6.268 14-14S25.732 4 18 4z" stroke="#c8a03c" stroke-width="1.5" fill="none"/>
-        <path d="M18 8v2M8 18h2M28 18h-2M18 28v-2" stroke="#c8a03c" stroke-width="1" opacity=".5"/>
-        <line x1="18" y1="18" x2="18" y2="10" stroke="#c8a03c" stroke-width="2" stroke-linecap="round" style="transform-origin:18px 18px;animation:rev 2s ease-out both"/>
-        <circle cx="18" cy="18" r="2.5" fill="#c8a03c"/>
-      </svg>
-    </div>
-    <h1 class="ttl">The Allison<br>Crew Chief</h1>
-    <p class="sub">iRacing Late Model Stock — Setup Advisor</p>
-    <p class="sub2">Based on the official iRacing LMS User Manual V3</p>
-    <div class="div"></div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab on" data-t="handling">Handling</button>
-    <button class="tab" data-t="gearing">Gearing & Brakes</button>
-  </div>
-
-  <!-- Handling Panel -->
-  <div id="p-handling">
-    <div class="gap">
-      <label class="lbl">Where in the corner?</label>
-      <div class="pills" id="corner-pills"></div>
-    </div>
-    <div class="gap">
-      <label class="lbl">How's the car handling?</label>
-      <div class="pills" id="handling-pills"></div>
-    </div>
-    <div id="neutral-msg" class="hide"></div>
-  </div>
-
-  <!-- Gearing Panel -->
-  <div id="p-gearing" class="hide">
-    <div class="gap">
-      <label class="lbl">Select Track</label>
-      <select class="sel" id="track-sel"><option value="">Choose a track...</option></select>
-    </div>
-    <div class="gap">
-      <label class="lbl">How hard are you on the chip? (brake pedal)</label>
-      <div class="pills" id="chip-pills"></div>
-    </div>
-  </div>
-
-  <button class="go" id="go-btn" disabled>Get Setup Advice</button>
-  <div id="results" class="hide"></div>
+<div class="bg">
+  <div class="stripe-l"></div><div class="stripe-l2"></div>
+  <div class="checker"></div>
+  <div class="glow-r"></div><div class="glow-g"></div>
 </div>
-
-<!-- Install Banner -->
+<div class="app" id="app">
+<div class="hdr">
+  <div class="flag-bar"></div>
+  <div class="number">45</div>
+  <h1 class="ttl">THE <span class="accent">ALLISON</span> CREW CHIEF</h1>
+  <p class="sub">iRacing Late Model Stock · Setup Advisor</p>
+  <div class="redline"></div>
+  <div class="manual-tag">Manual V3 Verified</div>
+</div>
+<div class="rpm-bar"><div class="fill"></div></div>
+<div class="tabs"><button class="tab on" data-t="handling">Handling</button><button class="tab" data-t="gearing">Gearing & Brakes</button></div>
+<div id="p-handling">
+<div class="gap"><label class="lbl">Where in the corner?</label><div class="pills" id="corner-pills"></div></div>
+<div class="gap"><label class="lbl">How's the car handling?</label><div class="pills" id="handling-pills"></div></div>
+<div id="sev-section" class="hide"><div class="gap"><label class="lbl">How bad is it?</label><div class="pills" id="sev-pills"></div></div></div>
+<div id="neutral-msg" class="hide"></div>
+</div>
+<div id="p-gearing" class="hide">
+<div class="gap"><label class="lbl">Select Track</label><select class="sel" id="track-sel"><option value="">Choose a track...</option></select></div>
+<div class="gap"><label class="lbl">How hard on the chip?</label><div class="pills" id="chip-pills"></div></div>
+</div>
+<button class="go" id="go-btn" disabled>🏁 Get Setup Advice</button>
+<div id="results" class="hide"></div>
+</div>
 <div class="ibanner hide" id="ib"><button class="ibtn" id="ib-btn">📲 Install to Home Screen</button></div>
-
 <script>
-// ═══ DATA ═══════════════════════════════════════════════════
-const TRACKS=[
-{n:"Bristol Motor Speedway",l:.533,t:"short",c:"Very hard on chip — heavy braking zone, tight paperclip corners"},
-{n:"Charlotte Motor Speedway",l:1.5,t:"intermediate",c:"Moderate chip, lift-and-coast through center"},
-{n:"Darlington Raceway",l:1.366,t:"intermediate",c:"Asymmetric — harder on chip in turns 3-4"},
-{n:"Daytona International Speedway",l:2.5,t:"superspeedway",c:"Minimal chip usage, WOT most of the lap"},
-{n:"Dover Motor Speedway",l:1.0,t:"short",c:"Concrete surface, moderate chip"},
-{n:"Five Flags Speedway",l:.5,t:"short",c:"Tight half-mile, moderate-heavy chip"},
-{n:"Hickory Motor Speedway",l:.363,t:"short",c:"Very tight bullring, heavy chip"},
-{n:"Homestead-Miami Speedway",l:1.5,t:"intermediate",c:"Progressive banking, light chip"},
-{n:"Iowa Speedway",l:.875,t:"short",c:"Moderate chip, short track feel"},
-{n:"Irwindale Speedway",l:.5,t:"short",c:"Half-mile, moderate chip"},
-{n:"Kansas Speedway",l:1.5,t:"intermediate",c:"Moderate chip, progressive banking helps"},
-{n:"Langley Speedway",l:.395,t:"short",c:"Tight bullring, heavy chip usage"},
-{n:"Las Vegas Motor Speedway",l:1.5,t:"intermediate",c:"Light chip, flat corners"},
-{n:"Martinsville Speedway",l:.526,t:"short",c:"Extremely hard on chip — heavy braking paperclip"},
-{n:"Michigan International Speedway",l:2.0,t:"superspeedway",c:"Light chip, high speed sweepers"},
-{n:"New Hampshire Motor Speedway",l:1.058,t:"short",c:"Flat track, moderate-heavy chip"},
-{n:"North Wilkesboro Speedway",l:.625,t:"short",c:"Uphill/downhill, moderate chip"},
-{n:"Phoenix Raceway",l:1.0,t:"short",c:"Dogleg adds chip usage, moderate"},
-{n:"Pocono Raceway",l:2.5,t:"superspeedway",c:"Three unique turns — heavy chip in Tunnel Turn"},
-{n:"Richmond Raceway",l:.75,t:"short",c:"D-shaped, moderate chip"},
-{n:"Rockingham Speedway",l:1.017,t:"short",c:"Narrow groove, moderate chip"},
-{n:"South Boston Speedway",l:.4,t:"short",c:"Tight bullring, heavy braking"},
-{n:"Southern National Motorsports Park",l:.4,t:"short",c:"Tight 4/10 mile, heavy chip"},
-{n:"Talladega Superspeedway",l:2.66,t:"superspeedway",c:"Minimal chip, drafting track"},
-{n:"Texas Motor Speedway",l:1.5,t:"intermediate",c:"Repaved — light chip, high grip"},
-];
+const TRACKS=[{n:"Bristol Motor Speedway",l:.533,t:"short",c:"Very hard on chip — heavy braking, tight paperclip corners"},{n:"Charlotte Motor Speedway",l:1.5,t:"intermediate",c:"Moderate chip, lift-and-coast through center"},{n:"Darlington Raceway",l:1.366,t:"intermediate",c:"Asymmetric — harder on chip in turns 3-4"},{n:"Daytona International Speedway",l:2.5,t:"superspeedway",c:"Minimal chip usage, WOT most of the lap"},{n:"Dover Motor Speedway",l:1.0,t:"short",c:"Concrete surface, moderate chip"},{n:"Five Flags Speedway",l:.5,t:"short",c:"Tight half-mile, moderate-heavy chip"},{n:"Hickory Motor Speedway",l:.363,t:"short",c:"Very tight bullring, heavy chip"},{n:"Homestead-Miami Speedway",l:1.5,t:"intermediate",c:"Progressive banking, light chip"},{n:"Iowa Speedway",l:.875,t:"short",c:"Moderate chip, short track feel"},{n:"Irwindale Speedway",l:.5,t:"short",c:"Half-mile, moderate chip"},{n:"Kansas Speedway",l:1.5,t:"intermediate",c:"Moderate chip, progressive banking helps"},{n:"Langley Speedway",l:.395,t:"short",c:"Tight bullring, heavy chip usage"},{n:"Las Vegas Motor Speedway",l:1.5,t:"intermediate",c:"Light chip, flat corners"},{n:"Martinsville Speedway",l:.526,t:"short",c:"Extremely hard on chip — heavy braking paperclip"},{n:"Michigan International Speedway",l:2.0,t:"superspeedway",c:"Light chip, high speed sweepers"},{n:"New Hampshire Motor Speedway",l:1.058,t:"short",c:"Flat track, moderate-heavy chip"},{n:"North Wilkesboro Speedway",l:.625,t:"short",c:"Uphill/downhill, moderate chip"},{n:"Phoenix Raceway",l:1.0,t:"short",c:"Dogleg adds chip usage, moderate"},{n:"Pocono Raceway",l:2.5,t:"superspeedway",c:"Three unique turns — heavy chip in Tunnel Turn"},{n:"Richmond Raceway",l:.75,t:"short",c:"D-shaped, moderate chip"},{n:"Rockingham Speedway",l:1.017,t:"short",c:"Narrow groove, moderate chip"},{n:"South Boston Speedway",l:.4,t:"short",c:"Tight bullring, heavy braking"},{n:"Southern National Motorsports Park",l:.4,t:"short",c:"Tight 4/10 mile, heavy chip"},{n:"Talladega Superspeedway",l:2.66,t:"superspeedway",c:"Minimal chip, drafting track"},{n:"Texas Motor Speedway",l:1.5,t:"intermediate",c:"Repaved — light chip, high grip"}];
+const SEV={mild:{icon:"🟡",color:"#d4a827",desc:"Slightly off — just needs a nudge"},moderate:{icon:"🟠",color:"#e07020",desc:"Noticeable — costing you time"},severe:{icon:"🔴",color:"#e8281c",desc:"Undriveable — can't hold the car"}};
+const ADV={"Entry-Loose":{title:"Loose on Entry",mild:{intro:"Just a slight wiggle on turn-in. One small change:",items:[{a:"Brake Balance Bar",t:"Increase by 0.5–1% (more front bias). Keeps front loaded so the rear doesn't step out."},{a:"Rear Rebound Stiffness",t:"Increase by 1-2 clicks — holds the rear during braking-to-turn-in transition."}]},moderate:{intro:"Rear stepping out noticeably. Combine 2-3 of these:",items:[{a:"Brake Balance Bar",t:"Increase by 1–2% (more front bias) to keep weight forward under braking."},{a:"Front Bump Stiffness",t:"Increase by 2-3 clicks — tightens under braking by slowing front compression."},{a:"Cross Weight",t:"Increase slightly — adds weight to LR & RF diagonal, planting the rear."},{a:"RF Packer",t:"Add a small RF packer — shifts weight to RF sooner on entry, stabilizing."}]},severe:{intro:"Car is spinning or nearly spinning on entry. Work through these in order:",items:[{a:"Brake Balance Bar",t:"Increase by 2-3% toward front. Need significantly more front braking force."},{a:"Cross Weight",t:"Increase by 0.5–1.0% — shift diagonal weight to tighten the rear."},{a:"Front Bump Stiffness",t:"Increase by 3-5 clicks — resist front dive so rear doesn't unload violently."},{a:"Rear Rebound Stiffness",t:"Increase by 3-4 clicks — physically holds the rear down."},{a:"LR Track Bar Height",t:"Lower the left-side mount — increases LR grip directly."},{a:"Nose Weight / Ballast Forward",t:"Move ballast forward — more front weight stops the rear from swinging."},{a:"Front Caster Split",t:"Reduce LF-to-RF caster split — less aggressive corner pull."}]}},
+"Entry-Tight":{title:"Tight on Entry",mild:{intro:"Car is just a little lazy turning in. One small tweak:",items:[{a:"Brake Balance Bar",t:"Decrease by 0.5–1% (more rear bias) to help rotation."},{a:"Front Bump Stiffness",t:"Decrease by 1-2 clicks — lets front load faster for better bite."}]},moderate:{intro:"Pushing through entry, losing time. Combine a few:",items:[{a:"Brake Balance Bar",t:"Decrease by 1–2% for more rear braking force and rotation."},{a:"Front Bump Stiffness",t:"Decrease by 2-3 clicks — lets front dive and load faster."},{a:"Rear Rebound Stiffness",t:"Decrease RR rebound by 2-3 clicks — frees rear for rotation."},{a:"LF Packer",t:"Add LF packer — loosens entry and reduces front bar load."}]},severe:{intro:"Car is plowing straight — won't turn at all. Major changes:",items:[{a:"Brake Balance Bar",t:"Decrease by 2-3% toward rear for significant rotation."},{a:"Cross Weight",t:"Decrease by 0.5–1.0% — shifts weight to LF/RR diagonal."},{a:"Front Bump Stiffness",t:"Decrease by 3-5 clicks — let front dive to plant front tires."},{a:"Rear Rebound Stiffness",t:"Decrease by 3-4 clicks, especially RR."},{a:"LR Track Bar Height",t:"Raise left-side mount — helps car rotate into corner."},{a:"Nose Weight / Ballast Forward",t:"Move ballast rearward — less front weight lets nose bite."},{a:"Front Caster Split",t:"Run less caster on LF than RF — enters more aggressively."}]}},
+"Center-Loose":{title:"Loose in Center",mild:{intro:"Slight drift through the middle. Small tweak will settle it:",items:[{a:"Cross Weight",t:"Increase slightly — more LR/RF diagonal weight tightens center."},{a:"Rear Bump Stiffness",t:"Increase by 1-2 clicks — adds stability through sustained cornering."}]},moderate:{intro:"Rear sliding through center, scrubbing speed. Try combining:",items:[{a:"Cross Weight",t:"Increase by 0.3–0.5% — plants the rear mid-corner."},{a:"RR Spring Rate",t:"Increase — stiffer RR compensates for no rear ARB."},{a:"Track Bar Height (both)",t:"Lower both mounts — tightens the chassis while cornering."},{a:"Tire Pressures",t:"Lower RR cold pressure by 0.5–1 psi for more grip."}]},severe:{intro:"Completely sideways through center. Major work needed:",items:[{a:"Cross Weight",t:"Increase by 0.5–1.0% — biggest lever for center tightness."},{a:"RR Spring Rate",t:"Increase significantly — main rear roll resistance without rear ARB."},{a:"Track Bar Height (both)",t:"Lower both mounts — tightens entire cornering phase."},{a:"Rear Bump Stiffness",t:"Increase by 3-5 clicks for more stability."},{a:"Front ARB Diameter",t:"Decrease — lets front grip better, balancing loose rear."},{a:"Tire Pressures",t:"Lower RR by 1-2 psi AND raise LF to shift grip balance."},{a:"RF Bumpstop Rate",t:"Soften — more front mechanical grip through the arc."}]}},
+"Center-Tight":{title:"Tight in Center",mild:{intro:"Reluctant to rotate mid-corner. One adjustment:",items:[{a:"Cross Weight",t:"Decrease slightly — shifts weight to LF/RR diagonal."},{a:"Rear Bump Stiffness",t:"Decrease by 1-2 clicks — rear moves more freely."}]},moderate:{intro:"Pushing through center, waiting on throttle. Combine a few:",items:[{a:"Cross Weight",t:"Decrease by 0.3–0.5% — lower values shift weight to LF/RR."},{a:"Track Bar Height (both)",t:"Raise both mounts — frees chassis through all cornering."},{a:"RR Spring Rate",t:"Soften — more rear rotation. LR/RR split controls roll."},{a:"Tire Pressures",t:"Lower front cold pressures by 0.5–1 psi."}]},severe:{intro:"Car won't turn through center — scrubbing massive speed:",items:[{a:"Cross Weight",t:"Decrease by 0.5–1.0% — strongest tool for freeing center."},{a:"Track Bar Height (both)",t:"Raise both mounts significantly."},{a:"RR Spring Rate",t:"Soften significantly — let rear roll and rotate."},{a:"Front ARB Diameter",t:"Increase — more front roll stiffness helps rear come around."},{a:"Rear Bump Stiffness",t:"Decrease by 3-5 clicks."},{a:"Tire Pressures",t:"Lower front by 1-2 psi AND raise RR by 0.5-1 psi."},{a:"Corner Weight Tuning",t:"Adjust spring perch offsets to shift weight to LF/RR."}]}},
+"Exit-Loose":{title:"Loose on Exit",mild:{intro:"Slight step-out on throttle. Easy fix:",items:[{a:"Rear Bump Stiffness",t:"Increase by 1-2 clicks — tightens under acceleration."},{a:"Tire Pressures",t:"Lower RR cold pressure by 0.5 psi."}]},moderate:{intro:"Rear sliding on throttle, can't get to full power. Combine:",items:[{a:"Rear Bump Stiffness",t:"Increase by 2-3 clicks."},{a:"Cross Weight",t:"Increase — more LR weight for on-throttle traction."},{a:"Front Rebound Stiffness (LF)",t:"Increase LF rebound by 2-3 clicks."},{a:"Tire Pressures",t:"Lower LR/RR cold pressures by 0.5–1 psi."}]},severe:{intro:"Spinning tires or swinging rear on exit. Big changes needed:",items:[{a:"Rear Bump Stiffness",t:"Increase by 4-6 clicks."},{a:"Cross Weight",t:"Increase by 0.5–1.0% — more LR weight for traction."},{a:"RR Spring Rate",t:"Increase — stiffer RR plants rear. Compensates for no rear ARB."},{a:"Front Rebound Stiffness (LF)",t:"Increase LF rebound by 3-5 clicks."},{a:"RR Track Bar Height",t:"Lower right-side mount — increases grip on that tire."},{a:"Truck Arm Mount",t:"Lower — increases rear end bite, reduces rear steer."},{a:"Tire Pressures",t:"Lower LR and RR by 1-2 psi."}]}},
+"Exit-Tight":{title:"Tight on Exit",mild:{intro:"Touch tight off the corner. Small change:",items:[{a:"Rear Bump Stiffness",t:"Decrease by 1-2 clicks — loosens under acceleration."},{a:"Front Rebound Stiffness (RF)",t:"Increase RF rebound by 1-2 clicks — frees exit."}]},moderate:{intro:"Won't rotate off the corner, losing drive. Combine:",items:[{a:"Rear Bump Stiffness",t:"Decrease by 2-3 clicks."},{a:"Cross Weight",t:"Decrease — less LR/RF diagonal weight."},{a:"Front Rebound Stiffness (RF)",t:"Increase RF rebound by 2-3 clicks."},{a:"RR Track Bar Height",t:"Raise right-side mount — reduces RR grip center to exit."}]},severe:{intro:"Car won't drive off the corner — bogging and pushing. Major:",items:[{a:"Rear Bump Stiffness",t:"Decrease by 4-6 clicks."},{a:"Cross Weight",t:"Decrease by 0.5–1.0%."},{a:"RR Track Bar Height",t:"Raise right-side mount — frees center to exit."},{a:"RR Spring Rate",t:"Soften significantly."},{a:"Front Rebound Stiffness (RF)",t:"Increase RF rebound by 3-5 clicks."},{a:"Truck Arm Mount",t:"Raise — reduces rear grip, more rear steer."},{a:"Tire Pressures",t:"Raise rear cold pressures by 1-2 psi."}]}}};
 
-const ADV={
-"Entry-Loose":{title:"Loose on Entry",items:[
-{a:"Brake Balance Bar",t:"Increase (more front bias) — keeps front tires loaded longer under braking and prevents rear from stepping out."},
-{a:"Rear Rebound Stiffness",t:"Increase — holds the rear in place under braking and corner entry. Try increasing LR rebound specifically to stabilize."},
-{a:"Front Bump Stiffness",t:"Increase — tightens the car under braking and on entry by slowing front compression."},
-{a:"Cross Weight",t:"Increase — adds weight to the LR & RF diagonal, planting the rear under braking."},
-{a:"LR Track Bar Height",t:"Lower the left-side track bar mount — increases LR grip and stabilizes entry."},
-{a:"Nose Weight / Ballast Forward",t:"Move ballast forward — increases front weight percentage, plants the front and reduces rear swing."},
-{a:"RF Packer",t:"Add RF packer — shifts weight to RF sooner on entry which stabilizes the car, per the manual."},
-{a:"Front Caster Split",t:"Reduce the LF-to-RF caster split — less split means the car won't pull as hard into the corner, reducing snap rotation."},
-]},
-"Entry-Tight":{title:"Tight on Entry",items:[
-{a:"Brake Balance Bar",t:"Decrease (more rear bias) — shifts braking force rearward to help rotate the car under braking."},
-{a:"Front Bump Stiffness",t:"Decrease — loosens the car under braking and entry by letting the front load up faster."},
-{a:"Rear Rebound Stiffness",t:"Decrease — allows the rear to unload more freely on entry. Specifically, reduce RR rebound to free up entry."},
-{a:"Cross Weight",t:"Decrease — shifts weight to the LF/RR diagonal, loosening the car through entry and center."},
-{a:"LR Track Bar Height",t:"Raise the left-side track bar mount — helps the car rotate into the center of the corner."},
-{a:"Nose Weight / Ballast Forward",t:"Move ballast rearward — less front weight lets the nose bite and turn in better."},
-{a:"LF Packer",t:"Add LF packer — can loosen the car on corner entry and reduce front bar load, per the manual."},
-{a:"Front Caster Split",t:"Run less caster on the LF than RF — the manual says this makes the car pull harder left and enter more aggressively."},
-]},
-"Center-Loose":{title:"Loose in the Center",items:[
-{a:"Cross Weight",t:"Increase — more weight on the LR/RF diagonal tightens the car through the center of the corner."},
-{a:"Track Bar Height (both sides)",t:"Lower both track bar mounts equally — reduces rear roll stiffness and tightens the chassis while cornering."},
-{a:"RR Spring Rate",t:"Increase — the RR is usually stiffer to compensate for no rear ARB. More RR spring plants the rear mid-corner."},
-{a:"Rear Bump Stiffness",t:"Increase — tightens the car during suspension travel, adding stability through the center."},
-{a:"Front ARB Diameter",t:"Decrease — smaller front ARB reduces front roll stiffness, letting the front grip up better through the arc."},
-{a:"Tire Pressures",t:"Lower RR cold pressure slightly — lower pressures increase grip per the manual. More RR grip stabilizes center."},
-{a:"RF Bumpstop Rate",t:"Soften — increases front mechanical grip through the arc by letting the front work more."},
-]},
-"Center-Tight":{title:"Tight in the Center",items:[
-{a:"Cross Weight",t:"Decrease — the manual states lower values shift weight to LF/RR and induce oversteer through center."},
-{a:"Track Bar Height (both sides)",t:"Raise both track bar mounts equally — increases rear roll stiffness and frees up the chassis through all cornering phases."},
-{a:"RR Spring Rate",t:"Soften — allows more rear body roll and rotation mid-corner. The LR/RR split controls rear roll without a rear ARB."},
-{a:"Front ARB Diameter",t:"Increase — more front roll stiffness can push the front through the center, helping the rear come around."},
-{a:"Rear Bump Stiffness",t:"Decrease — loosens the car during suspension travel by letting the rear move more freely."},
-{a:"Tire Pressures",t:"Lower front cold pressures for more front grip. Consider raising RR pressure slightly to reduce rear grip."},
-{a:"Corner Weight Tuning",t:"Adjust spring perch offsets to shift weight — fine-tuning corner weights can help loosen the center balance."},
-]},
-"Exit-Loose":{title:"Loose on Exit",items:[
-{a:"Rear Bump Stiffness",t:"Increase — the manual says increasing rear bump stiffness tightens the car under acceleration and on corner exit."},
-{a:"Cross Weight",t:"Increase — more weight on the LR tire means better on-throttle traction. The manual notes this for low-grip tracks."},
-{a:"RR Spring Rate",t:"Increase — stiffer RR plants the rear under acceleration. The RR spring compensates for having no rear ARB."},
-{a:"Front Rebound Stiffness (LF)",t:"Increase LF rebound — the manual says this increases traction and understeer on exit, planting the rear."},
-{a:"RR Track Bar Height",t:"Lower the right-side mount — increases RR grip on exit. The manual says lowering increases grip on that tire."},
-{a:"Truck Arm Mount",t:"Lower — the manual says lower truck arm mounts increase rear end bite and reduce rear steer."},
-{a:"Tire Pressures",t:"Lower LR/RR cold pressures — more rear grip on throttle application."},
-]},
-"Exit-Tight":{title:"Tight on Exit",items:[
-{a:"Rear Bump Stiffness",t:"Decrease — the manual says decreasing rear bump stiffness loosens the car under acceleration and on corner exit."},
-{a:"Cross Weight",t:"Decrease — shifts weight off the LR/RF diagonal, reducing on-throttle understeer."},
-{a:"Front Rebound Stiffness (RF)",t:"Increase RF rebound — the manual says this frees up the chassis on corner exit."},
-{a:"RR Track Bar Height",t:"Raise the right-side mount — reduces RR grip, freeing the chassis from center to exit. Manual calls this a good fix."},
-{a:"RR Spring Rate",t:"Soften — allows more rear movement on throttle, letting the rear rotate."},
-{a:"Truck Arm Mount",t:"Raise — reduces rear end grip and increases rear steer, helping the car rotate off the corner."},
-{a:"Tire Pressures",t:"Raise rear cold pressures slightly — reduces rear grip on acceleration which frees the car on exit."},
-]},
-};
-
-// ═══ STATE ══════════════════════════════════════════════════
-let S={tab:"handling",corner:"",handling:"",track:"",chip:"",show:false};
-
-// ═══ DOM ════════════════════════════════════════════════════
+let S={tab:"handling",corner:"",handling:"",sev:"",track:"",chip:"",show:false};
 const $=id=>document.getElementById(id);
-const pH=$("p-handling"),pG=$("p-gearing"),goBtn=$("go-btn"),res=$("results"),nMsg=$("neutral-msg"),tSel=$("track-sel");
-
-// ═══ BUILD ══════════════════════════════════════════════════
-function mkPills(el,items,grp,cls){
-  el.innerHTML="";
-  items.forEach(v=>{
-    const b=document.createElement("button");
-    b.className="pill"+(cls?" "+cls:"");
-    if(grp==="handling"){
-      const ic={Loose:"🔥",Tight:"🧊",Neutral:"✅"};
-      b.textContent=ic[v]+" "+v;
-      b.classList.add(v.toLowerCase());
-    } else b.textContent=v;
-    b.dataset.v=v;
-    b.onclick=()=>{
-      if(grp==="corner")S.corner=v;
-      else if(grp==="handling")S.handling=v;
-      else if(grp==="chip")S.chip=v;
-      S.show=false;render();
-    };
-    el.appendChild(b);
-  });
-}
-
-TRACKS.forEach(t=>{const o=document.createElement("option");o.value=t.n;o.textContent=t.n+" ("+t.l+" mi)";tSel.appendChild(o)});
-tSel.onchange=e=>{S.track=e.target.value;S.show=false;render()};
-
-mkPills($("corner-pills"),["Entry","Center","Exit"],"corner");
-mkPills($("handling-pills"),["Loose","Tight","Neutral"],"handling");
-mkPills($("chip-pills"),["Barely touching it","Moderate pressure","Standing on it hard","Locking up / sliding"],"chip","sm");
-
+function mkPills(el,items,grp,cls){el.innerHTML="";items.forEach(v=>{const b=document.createElement("button");b.className="pill"+(cls?" "+cls:"");if(grp==="handling"){b.textContent=({Loose:"🔥 ",Tight:"🧊 ",Neutral:"✅ "}[v]||"")+v;b.classList.add(v.toLowerCase())}else b.textContent=v;b.dataset.v=v;b.onclick=()=>{if(grp==="corner"){S.corner=v;S.sev=""}else if(grp==="handling"){S.handling=v;S.sev=""}else if(grp==="chip")S.chip=v;S.show=false;render()};el.appendChild(b)})}
+function mkSev(){const el=$("sev-pills");el.innerHTML="";["mild","moderate","severe"].forEach(v=>{const s=SEV[v],b=document.createElement("button");b.className="sev-btn";b.dataset.v=v;b.innerHTML='<span class="sl">'+s.icon+" "+v+'</span><span class="sd">'+s.desc+'</span>';b.onclick=()=>{S.sev=v;S.show=false;render()};el.appendChild(b)})}
+TRACKS.forEach(t=>{const o=document.createElement("option");o.value=t.n;o.textContent=t.n+" ("+t.l+" mi)";$("track-sel").appendChild(o)});
+$("track-sel").onchange=e=>{S.track=e.target.value;S.show=false;render()};
+mkPills($("corner-pills"),["Entry","Center","Exit"],"corner");mkPills($("handling-pills"),["Loose","Tight","Neutral"],"handling");mkPills($("chip-pills"),["Barely touching it","Moderate pressure","Standing on it hard","Locking up / sliding"],"chip","sm");mkSev();
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;S.show=false;render()});
-goBtn.onclick=()=>{S.show=true;render();setTimeout(()=>res.scrollIntoView({behavior:"smooth"}),100)};
+$("go-btn").onclick=()=>{S.show=true;render();setTimeout(()=>$("results").scrollIntoView({behavior:"smooth"}),100)};
 
-// ═══ GEAR ADVICE ════════════════════════════════════════════
-function gearAdv(tn,cl){
-  const t=TRACKS.find(x=>x.n===tn);if(!t)return null;
-  let g="",ch="",rpm="7,200";
+function gearAdv(tn,cl){const t=TRACKS.find(x=>x.n===tn);if(!t)return null;let g="",ch="",rpm="7,200";if(t.t==="superspeedway")g=t.n+" — drafting track. Taller ratio (~3.00–3.40) for top speed. Hit "+rpm+" RPM before braking.";else if(t.t==="intermediate")g="Intermediate at "+t.n+": Ratio ~3.40–3.80. Hit "+rpm+" RPM before braking. Shift by ear.";else g="Short track at "+t.n+": Shorter ratio (~4.00–5.00+) for exit acceleration. Hit "+rpm+" RPM before braking.";if(cl==="Standing on it hard"||cl==="Locking up / sliding"){const lk=cl==="Locking up / sliding";ch="Overworking the brakes"+(lk?" — locking up":"")+". At "+t.n+", "+t.c.toLowerCase()+". Brake Balance Bar: locking fronts=decrease, locking rears=increase. Over 50%=more front. "+(lk?"Reduce total pressure.":"Ease off earlier.");if(t.t==="short")ch+=" Downshift earlier for engine braking."}else if(cl==="Moderate pressure")ch="Good middle ground. At "+t.n+", "+t.c.toLowerCase()+". Brake Balance Bar: higher=tighter, lower=looser under braking.";else if(cl==="Barely touching it"){ch="Light braking at "+t.n+". "+t.c+". Harder initial hit with smooth trail-off improves rotation. "+(t.t==="short"?"Short tracks usually need more brake.":"Bigger tracks: this may be fine.")}return{g,ch}}
 
-  if(t.t==="superspeedway")g=t.n+" is a drafting track. Set a taller rear end ratio (lower number, ~3.00–3.40) for max top speed. Hit the "+rpm+" RPM limiter briefly before the braking zone.";
-  else if(t.t==="intermediate")g="Intermediate gearing at "+t.n+": Rear end ratio ~3.40–3.80. Hit "+rpm+" RPM briefly before the braking zone at end of back straight. Shift by ear — no tachometer.";
-  else g="Short track gearing at "+t.n+": Shorter rear end ratio (higher number, ~4.00–5.00+) for max corner exit acceleration. Hit "+rpm+" RPM before braking zone. Corner exit pull > top speed here.";
-
-  if(cl==="Standing on it hard"||cl==="Locking up / sliding"){
-    const lk=cl==="Locking up / sliding";
-    ch="You're overworking the brakes"+(lk?" and locking up":"")+". At "+t.n+", "+t.c.toLowerCase()+". The Brake Balance Bar controls front/rear split — locking fronts: decrease value. Locking rears: increase value. Values over 50% = more front. Trail-brake: hard initial hit, smooth release as you turn in. "+(lk?"Locking means you've exceeded grip — reduce total brake pressure.":"Ease off earlier, roll speed into center.");
-    if(t.t==="short")ch+=" Downshift earlier to use engine braking. Upshift: lift throttle. Downshift: blip throttle. No clutch once rolling.";
-  }else if(cl==="Moderate pressure"){
-    ch="Good middle ground. At "+t.n+", "+t.c.toLowerCase()+". Fine-tune Brake Balance Bar — higher values tighten under braking (understeer), lower values loosen (oversteer). Use that to control entry rotation.";
-  }else if(cl==="Barely touching it"){
-    ch="Light braking at "+t.n+". "+t.c+". A harder initial hit followed by a smooth trail-off can give better rotation. ";
-    ch+=t.t==="short"?"On short tracks you typically need more brake than expected.":"On a bigger track this may be fine — many intermediates are lift-and-roll.";
-  }
-  return{g,ch};
-}
-
-// ═══ RENDER ═════════════════════════════════════════════════
 function render(){
-  // Tabs
-  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.t===S.tab));
-  pH.classList.toggle("hide",S.tab!=="handling");
-  pG.classList.toggle("hide",S.tab!=="gearing");
-
-  // Pills
-  $("corner-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.corner));
-  $("handling-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.handling));
-  $("chip-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.chip));
-
-  // Neutral
-  if(S.handling==="Neutral"&&S.corner){
-    nMsg.classList.remove("hide");
-    nMsg.innerHTML='<div class="nbox"><h4>✅ CAR IS BALANCED</h4><p>If the car feels neutral on '+S.corner.toLowerCase()+', you\'re in good shape. Focus on smooth hands, progressive throttle, consistent braking points. The manual recommends smooth, consistent laps before chasing the setup. No tachometer — shift by ear before 7,200 RPM.</p></div>';
-  }else{nMsg.classList.add("hide");nMsg.innerHTML="";}
-
-  // Button
-  const hOk=S.corner&&S.handling&&S.handling!=="Neutral";
-  const gOk=S.track&&S.chip;
-  const can=S.tab==="handling"?hOk:gOk;
-  goBtn.disabled=!can;
-  goBtn.textContent=S.show?"Update Recommendations":"Get Setup Advice";
-
-  // Results
-  if(!S.show){res.classList.add("hide");res.innerHTML="";return;}
-  res.classList.remove("hide");
-
-  let h='<div class="sep"></div><div class="sec-lbl">── Crew Chief Recommendations ──</div>';
-
-  if(S.tab==="handling"&&hOk){
-    const key=S.corner+"-"+S.handling;
-    const adv=ADV[key];
-    if(adv){
-      const col=S.handling==="Loose"?"var(--red)":"var(--blue)";
-      const ico=S.handling==="Loose"?"⚠️":"🔒";
-      h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">'+ico+'</span><h3 style="color:'+col+'">'+adv.title+'</h3></div>';
-      adv.items.forEach((s,i)=>{
-        h+='<div class="sug" style="animation:fadeIn .4s ease '+(i*.06)+'s both"><div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px"><span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="adj">'+s.a+'</span></div><p class="tip">'+s.t+'</p></div>';
-      });
-      h+='</div>';
-    }
-  }
-
-  if(S.tab==="gearing"&&gOk){
-    const gd=gearAdv(S.track,S.chip);
-    if(gd){
-      const hard=S.chip==="Standing on it hard"||S.chip==="Locking up / sliding";
-      h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">⚙️</span><h3 style="color:var(--gold)">Gearing & Brake Strategy</h3></div>';
-      h+='<div class="ibox" style="background:rgba(200,160,60,0.05);border:1px solid rgba(200,160,60,0.15)"><div class="il" style="color:var(--gold)">Rear End Ratio</div><p>'+gd.g+'</p></div>';
-      if(gd.ch){
-        const bg=hard?"rgba(220,80,40,0.06)":"var(--surface)";
-        const bc=hard?"rgba(220,80,40,0.2)":"var(--border)";
-        const lc=hard?"var(--red)":"var(--text-dim)";
-        const lb=hard?"⚠️ Brake Warning":"Brake Strategy";
-        h+='<div class="ibox" style="background:'+bg+';border:1px solid '+bc+'"><div class="il" style="color:'+lc+'">'+lb+'</div><p>'+gd.ch+'</p></div>';
-      }
-      h+='<div class="ibox" style="margin-top:12px;background:var(--surface);border:1px solid rgba(255,255,255,0.04)"><div class="il" style="color:var(--text-faint)">Quick Reference — LMS Specs</div><p style="color:#7a7668;font-size:12px">Rev limit: 7,200 RPM · 350ci V8 · 500 bhp · 450 lb-ft · No tachometer (shift by ear) · Upshift: lift throttle · Downshift: blip throttle · No clutch once rolling</p></div>';
-      h+='</div>';
-    }
-  }
-
-  h+='<details><summary>📋 Full LMS Adjustment List (from manual)</summary><div class="ref"><strong>Tires:</strong> Cold Air Pressure (LF, RF, LR, RR)<br><strong>Front Chassis:</strong> Ballast Forward, Nose Weight, Cross Weight, Steering Ratio, Steering Offset, Brake Balance Bar, Tape Config<br><strong>Front ARB:</strong> ARB Diameter, ARB Arm End, Attach Left Side, Preload<br><strong>Front Corners (LF/RF):</strong> Spring Perch Offset, Spring Rate, Bumpstop Rate, Packer, Bump Stiffness, Rebound Stiffness, Camber, Caster, Toe-in<br><strong>Rear Corners (LR/RR):</strong> Spring Perch Offset, Spring Rate, Bump Stiffness, Rebound Stiffness, Track Bar Height, Truck Arm Mount<br><strong>Rear:</strong> Fuel Fill To, Rear End Ratio, Truck Arm Preload<br><br><span style="color:var(--red)">NOT adjustable:</span> No rear sway bar · No rear camber · No rear caster · No rear toe</div></details>';
-
-  h+='<button class="rst" onclick="resetAll()">Clear & Start Over</button>';
-  h+='<p class="ftr">The Allison Crew Chief — iRacing Late Model Stocks — Manual V3 Verified</p>';
-  res.innerHTML=h;
-}
-
-function resetAll(){S.corner="";S.handling="";S.track="";S.chip="";S.show=false;tSel.value="";render();window.scrollTo({top:0,behavior:"smooth"});}
-
+document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.t===S.tab));
+$("p-handling").classList.toggle("hide",S.tab!=="handling");$("p-gearing").classList.toggle("hide",S.tab!=="gearing");
+$("corner-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.corner));
+$("handling-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.handling));
+$("chip-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.chip));
+const showSev=S.corner&&S.handling&&S.handling!=="Neutral";
+$("sev-section").classList.toggle("hide",!showSev);
+$("sev-pills").querySelectorAll(".sev-btn").forEach(b=>{const v=b.dataset.v,s=SEV[v],on=S.sev===v;b.style.border="1px solid "+(on?s.color:"rgba(255,255,255,0.1)");b.style.background=on?s.color+"18":"rgba(255,255,255,0.03)";b.querySelector(".sl").style.color=on?s.color:"#908a80";b.querySelector(".sd").style.color=on?s.color+"cc":"var(--text-faint)"});
+if(S.handling==="Neutral"&&S.corner){$("neutral-msg").classList.remove("hide");$("neutral-msg").innerHTML='<div class="nbox"><h4>✅ CAR IS BALANCED</h4><p>Neutral on '+S.corner.toLowerCase()+'? You\'re in the zone. Smooth hands, progressive throttle, consistent braking. Shift by ear before 7,200 RPM.</p></div>'}else{$("neutral-msg").classList.add("hide");$("neutral-msg").innerHTML=""}
+const hOk=S.corner&&S.handling&&S.handling!=="Neutral"&&S.sev,gOk=S.track&&S.chip,can=S.tab==="handling"?hOk:gOk;
+$("go-btn").disabled=!can;$("go-btn").textContent=S.show?"🏁 Update Recommendations":"🏁 Get Setup Advice";
+if(!S.show){$("results").classList.add("hide");$("results").innerHTML="";return}
+$("results").classList.remove("hide");
+let h='<div class="sep"></div><div class="sec-lbl">Crew Chief Says</div>';
+if(S.tab==="handling"&&hOk){const key=S.corner+"-"+S.handling,grp=ADV[key];if(grp){const adv=grp[S.sev],col=S.handling==="Loose"?"var(--red)":"var(--blue)",ico=S.handling==="Loose"?"⚠️":"🔒",sv=SEV[S.sev];h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">'+ico+'</span><h3 style="color:'+col+'">'+grp.title+'</h3></div><div class="sev-badge" style="background:'+sv.color+'15;border:1px solid '+sv.color+'40"><span style="font-size:12px">'+sv.icon+'</span><span style="color:'+sv.color+'">'+S.sev+' severity</span></div><p class="intro-text">'+adv.intro+'</p>';adv.items.forEach((s,i)=>{h+='<div class="sug" style="animation:fadeIn .4s ease '+(i*.06)+'s both"><div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px"><span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="adj">'+s.a+'</span></div><p class="tip">'+s.t+'</p></div>'});h+='</div>'}}
+if(S.tab==="gearing"&&gOk){const gd=gearAdv(S.track,S.chip);if(gd){const hard=S.chip==="Standing on it hard"||S.chip==="Locking up / sliding";h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">⚙️</span><h3 style="color:var(--gold)">Gearing & Brake Strategy</h3></div><div class="ibox" style="background:rgba(212,168,39,0.05);border:1px solid rgba(212,168,39,0.15)"><div class="il" style="color:var(--gold)">Rear End Ratio</div><p>'+gd.g+'</p></div>';if(gd.ch)h+='<div class="ibox" style="background:'+(hard?"rgba(232,42,28,0.06)":"var(--surface)")+';border:1px solid '+(hard?"rgba(232,42,28,0.2)":"var(--border)")+'"><div class="il" style="color:'+(hard?"var(--red)":"var(--text-dim)")+'">'+(hard?"⚠️ Brake Warning":"Brake Strategy")+'</div><p>'+gd.ch+'</p></div>';h+='<div class="ibox" style="margin-top:12px;background:var(--surface);border:1px solid rgba(255,255,255,0.04)"><div class="il" style="color:var(--text-faint)">Quick Reference</div><p style="color:#7a7668;font-size:13px">Rev limit: 7,200 RPM · 350ci V8 · 500 bhp · 450 lb-ft · No tach · Upshift: lift · Downshift: blip · No clutch once rolling</p></div></div>'}}
+h+='<details><summary>📋 Full LMS Adjustment List</summary><div class="ref"><strong>Tires:</strong> Cold Pressure (LF, RF, LR, RR)<br><strong>Front:</strong> Ballast Forward, Nose Weight, Cross Weight, Steering Ratio/Offset, Brake Balance Bar, Tape Config<br><strong>Front ARB:</strong> Diameter, Arm End, Attach Left Side, Preload<br><strong>Front Corners:</strong> Spring Perch Offset, Spring Rate, Bumpstop, Packer, Bump/Rebound Stiffness, Camber, Caster, Toe-in<br><strong>Rear Corners:</strong> Spring Perch Offset, Spring Rate, Bump/Rebound Stiffness, Track Bar Height, Truck Arm Mount<br><strong>Rear:</strong> Fuel Fill, Rear End Ratio, Truck Arm Preload<br><br><span style="color:var(--red)">NOT adjustable:</span> No rear sway bar · No rear camber · No rear caster · No rear toe</div></details>';
+h+='<button class="rst" onclick="resetAll()">Clear & Start Over</button><p class="ftr">The Allison Crew Chief · Late Model Stock</p><div class="ftr-bar"></div>';
+$("results").innerHTML=h}
+function resetAll(){S={tab:S.tab,corner:"",handling:"",sev:"",track:"",chip:"",show:false};$("track-sel").value="";render();window.scrollTo({top:0,behavior:"smooth"})}
 render();
-
-// ═══ PWA INSTALL ════════════════════════════════════════════
-let dp;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("ib").classList.remove("hide")});
-$("ib-btn").onclick=()=>{if(dp){dp.prompt();dp.userChoice.then(()=>{dp=null;$("ib").classList.add("hide")})}};
-if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+let dp;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("ib").classList.remove("hide")});$("ib-btn").onclick=()=>{if(dp){dp.prompt();dp.userChoice.then(()=>{dp=null;$("ib").classList.add("hide")})}};if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
 </html>
