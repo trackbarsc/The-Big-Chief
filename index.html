@@ -269,7 +269,7 @@ function mkPills(el,items,grp,cls){el.innerHTML="";items.forEach(v=>{const b=doc
 function mkSev(){const el=$("sev-pills");el.innerHTML="";["mild","moderate","severe"].forEach(v=>{const s=SEV[v],b=document.createElement("button");b.className="sev-btn";b.dataset.v=v;b.innerHTML='<span class="sl">'+s.icon+" "+v+'</span><span class="sd">'+s.desc+'</span>';b.onclick=()=>{S.sev=v;S.show=false;render()};el.appendChild(b)})}
 TRACKS.forEach(t=>{const o=document.createElement("option");o.value=t.n;o.textContent=t.n+" ("+t.l+" mi)";$("track-sel").appendChild(o)});
 $("track-sel").onchange=e=>{S.track=e.target.value;S.show=false;render()};
-mkPills($("corner-pills"),["Entry","Center","Exit"],"corner");mkPills($("handling-pills"),["Loose","Tight","Neutral"],"handling");mkPills($("chip-pills"),["Barely touching it","Moderate pressure","Standing on it hard","Locking up / sliding"],"chip","sm");mkSev();
+mkPills($("corner-pills"),["Entry","Center","Exit"],"corner");mkPills($("handling-pills"),["Loose","Tight","Neutral"],"handling");mkPills($("chip-pills"),["Not touching it","Barely touching it","Hard on it"],"chip","sm");mkSev();
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;S.show=false;render()});
 $("go-btn").onclick=()=>{S.show=true;render();setTimeout(()=>$("results").scrollIntoView({behavior:"smooth"}),100)};
 document.querySelectorAll(".tire-input").forEach(inp=>{inp.addEventListener("input",()=>{S.show=false;render()})});
@@ -301,34 +301,36 @@ if(t.t==="superspeedway")g=t.n+" — drafting track. Start around 3.00–3.40 ra
 else if(t.t==="intermediate")g="Intermediate at "+t.n+": Start around 3.40–3.80 ratio. Set it so you hit "+rpm+" RPM just before the braking zone at end of back straight.";
 else g="Short track at "+t.n+": Start around 4.00–5.00+ ratio for max exit pull. Set it so you hit "+rpm+" RPM just before the braking zone.";
 let chipGear=[],chipIntro="";
-if(cl==="Standing on it hard"||cl==="Locking up / sliding"){
-const lk=cl==="Locking up / sliding";
-chipIntro=lk?"You're locking up — that's eating your tires and your lap time. Here's how to fix it:":"You're braking very hard. Let's make sure the car is working with you, not against you:";
+if(cl==="Hard on it"){
+chipIntro="You're hammering the brakes. You need a gear that helps slow the car down for you so you're not relying on the chip alone:";
 chipGear=[
-{a:"Rear End Ratio",t:"Try going UP 2-3 points on the gear ratio (e.g., 4.61 → 4.64). A shorter gear gives you more engine braking on decel, which takes load off the brakes and saves the chip."},
-{a:"Brake Balance Bar",t:lk?"If the fronts are locking, decrease by 1-2%. If rears are locking, increase by 1-2%. Values over 50% = more front bias. Find the balance where neither axle locks first.":"Move 1% toward the front (increase) to prevent the rear from getting light under heavy braking. This stabilizes the car on entry."},
-{a:"Driving Tip",t:"Trail-brake: hit the brakes hard initially, then smoothly release pressure as you turn in. Get completely off the brake before mid-corner. "+(t.t==="short"?"On this short track, downshift earlier to use engine braking and save the pads.":"")},
-];
-}else if(cl==="Moderate pressure"){
-chipIntro="You're in a good window on the brakes. Here's how to fine-tune the gear to match:";
-chipGear=[
-{a:"Rear End Ratio",t:"Your current ratio is probably close. If you feel like you're carrying too much speed into the corner, go UP 1-2 points (e.g., 4.61 → 4.63) for a bit more engine braking. If the car bogs on exit, go DOWN 1-2 points for more top-end pull."},
-{a:"Brake Balance Bar",t:"Fine-tune your balance bar to match how the car rotates on entry. Higher values = more front bias = tighter under braking. Lower values = more rear bias = looser under braking. Adjust by 0.5% at a time."},
-{a:"Driving Tip",t:"You're in the sweet spot. Focus on consistency — same brake point every lap, smooth trail-off into the corner. The car will tell you if it needs more or less gear."},
+{a:"Go Shorter on the Gear (Higher Number)",t:"Go UP 3-5 points on the rear end ratio (e.g., 4.56 → 4.61). A shorter gear gives you significantly more engine braking on decel. The engine helps scrub speed before you even touch the brake, which saves your brakes and keeps the car more stable on entry."},
+{a:"Why This Helps",t:"With a shorter gear, the engine RPM stays higher through the braking zone. When you lift off the throttle, the engine acts like a brake on the rear wheels. This takes a huge load off your brake pads and reduces the chance of locking up. You won't need to stand on the chip as hard."},
+{a:"Brake Balance Bar",t:"If you're still heavy on the chip even after gearing shorter, increase the Brake Balance Bar by 1-2% (more front bias). This keeps the rear from getting light and stepping out under heavy braking."},
+{a:"Driving Adjustment",t:"With a shorter gear you'll hit the rev limiter sooner on the straights — that's the tradeoff. But on most short tracks the time you gain from better braking and corner entry is more than what you lose on top speed. Downshift earlier to maximize engine braking."},
 ];
 }else if(cl==="Barely touching it"){
-chipIntro="You're barely using the brakes. Make sure you're not leaving speed on the table:";
+chipIntro="You're using just a touch of brake. Your gear choice should match — here's how to dial it in:";
 chipGear=[
-{a:"Rear End Ratio",t:"If you're barely braking, you might be geared too short. Try going DOWN 2-4 points (e.g., 4.61 → 4.57) for more top speed. If you're carrying too much speed in, you may actually need to brake harder rather than change the gear."},
-{a:"Brake Balance Bar",t:"With light braking, bias matters less — but if the car still pushes on entry, drop the balance bar 0.5-1% toward the rear to help rotation."},
-{a:"Driving Tip",t:t.t==="short"?"On short tracks you typically need more brake than you think. Try hitting the brake harder initially and releasing sooner — you'll rotate better and carry more speed through the center.":"On bigger tracks, light braking can be fine — many intermediates are lift-and-roll. But make sure you're not just being timid. A firm initial hit with a smooth release usually gains time."},
+{a:"You're Probably Close on Gear",t:"If you're barely touching the chip and the car feels good, your gear ratio is likely in the right range. But ask yourself: are you barely braking because the gear is already slowing the car enough, or because you're not braking hard enough?"},
+{a:"Test Going UP 1-2 Points",t:"Try going UP 1-2 points (e.g., 4.56 → 4.58). A slightly shorter gear will give you a touch more engine braking, which might let you get off the brake even earlier and roll more speed through the center."},
+{a:"Or Test Going DOWN 1-2 Points",t:"If the car feels like it bogs on exit or you're hitting the limiter too early, try going DOWN 1-2 points (e.g., 4.56 → 4.54) for more top-end pull. You'll carry a bit more speed down the straight."},
+{a:"Brake Balance Bar",t:"With light braking, balance bar is less critical — but if the car pushes on entry, try dropping 0.5% toward the rear to help the car rotate into the corner."},
+];
+}else if(cl==="Not touching it"){
+chipIntro="You're not using the brake at all. That usually means your gear is doing all the slowing — or you might be leaving time on the table:";
+chipGear=[
+{a:"You May Be Geared Too Short",t:"If you're not touching the brake, the engine is scrubbing all your speed. Try going DOWN 3-5 points on the rear end ratio (e.g., 4.61 → 4.56). A taller gear means less engine braking, more top speed, and faster lap times on the straights."},
+{a:"But Don't Go Too Tall",t:"If you go too tall and the car carries too much speed into the corner, you'll NEED to start using the brake. That's actually a good thing — it means you've found the right gear and now you're using the chip to fine-tune entry speed rather than relying purely on engine braking."},
+{a:"Learn to Use the Chip",t:"The fastest drivers use a combination of engine braking AND the brake pedal. Not touching the chip at all usually means you're either over-slowing with the gear or not pushing hard enough. Try a taller gear and learn to trail-brake — hard initial hit, smooth release as you turn in."},
+{a:"Brake Balance Bar",t:"Once you start using the brake with a taller gear, set your balance bar around 55-57% to start. This gives you a stable, front-biased setup that's easy to modulate as you learn brake feel."},
 ];
 }
 h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">⚙️</span><h3 style="color:var(--gold)">Gearing Strategy</h3></div>';
 h+='<div class="ibox" style="background:rgba(212,168,39,0.05);border:1px solid rgba(212,168,39,0.15)"><div class="il" style="color:var(--gold)">Rear End Ratio — Starting Point</div><p>'+g+'</p></div>';
 h+='<div class="ibox" style="background:rgba(255,255,255,0.01);border:1px solid var(--border);margin-top:4px"><div class="il" style="color:var(--text-dim)">Track Chip Profile</div><p>'+t.c+'</p></div>';
 if(chipGear.length>0){
-var hard=cl==="Standing on it hard"||cl==="Locking up / sliding";
+var hard=cl==="Hard on it";
 h+='<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);position:relative;z-index:1">';
 h+='<div style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:3px;background:'+(hard?"rgba(232,42,28,0.1);border:1px solid rgba(232,42,28,0.3)":"rgba(212,168,39,0.1);border:1px solid rgba(212,168,39,0.25)")+';margin-bottom:10px"><span style="font-size:12px">'+(hard?"🛑":"🔧")+'</span><span style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:'+(hard?"var(--red)":"var(--gold)")+'">Chip-Based Adjustments</span></div>';
 h+='<p class="intro-text">'+chipIntro+'</p>';
