@@ -1,5 +1,5 @@
-const CACHE_NAME = 'bigchief-v2';
-const ASSETS = ['./index.html', './manifest.json', './logo.png'];
+const CACHE_NAME = 'bigchief-v3';
+const ASSETS = ['./index.html', './manifest.json', './logo.png', './icon-512.png', './icon-192.png', './icon-144.png', './icon-96.png', './icon-48.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
