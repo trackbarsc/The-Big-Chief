@@ -195,6 +195,7 @@ details .ref strong{color:var(--grey)}
 .db-result .db-explain{font-family:'Rajdhani',sans-serif;font-size:14px;color:var(--grey);line-height:1.7}
 .db-result .db-explain strong{color:var(--white)}
 
+
 /* ═══ SESSION LOGGER ═══ */
 .log-form{display:flex;flex-direction:column;gap:12px}
 .log-field{display:flex;flex-direction:column;gap:4px}
@@ -400,6 +401,11 @@ let S={car:"lms",tab:"handling",corner:"",handling:"",sev:"",track:"",chip:"",sh
 const $=id=>document.getElementById(id);
 function C(){return CARS[S.car]}
 
+// ═══ ALL TABS FREE — Setups sold on Gumroad ═══════════════
+var LOCKED_TABS=[];
+function isUnlocked(){return true}
+function isTabLocked(){return false}
+
 // ═══ BUILD UI ═══════════════════════════════════════════════
 // Car selector
 var csel=$("car-sel");
@@ -424,7 +430,7 @@ var c=C();
 // Car selector
 $("car-sel").querySelectorAll(".car-btn").forEach(b=>b.classList.toggle("on",b.dataset.c===S.car));updateSilhouette();
 // Tabs
-document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.t===S.tab));
+document.querySelectorAll(".tab").forEach(b=>{b.classList.toggle("on",b.dataset.t===S.tab);b.style.opacity="1"});
 $("p-handling").classList.toggle("hide",S.tab!=="handling");$("p-gearing").classList.toggle("hide",S.tab!=="gearing");$("p-tires").classList.toggle("hide",S.tab!=="tires");$("p-fuel").classList.toggle("hide",S.tab!=="fuel");$("p-debrief").classList.toggle("hide",S.tab!=="debrief");$("p-log").classList.toggle("hide",S.tab!=="log");
 // Hide go button on log/fuel/debrief tabs
 $("go-btn").classList.toggle("hide",S.tab==="log"||S.tab==="fuel"||S.tab==="debrief");
@@ -496,8 +502,9 @@ h+='</div></div>'}
 // Footer
 h+='<details><summary>📋 '+c.name+' Adjustment List</summary><div class="ref">'+c.adj+'</div></details>';
 h+='<button class="rst" onclick="resetAll()">Clear & Start Over</button>';
-h+='<a href="https://paypal.me/BransonA" target="_blank" rel="noopener" style="display:block;width:100%;margin-top:12px;padding:14px;border-radius:4px;background:linear-gradient(135deg,#0070ba,#003087);color:white;text-align:center;text-decoration:none;font-family:Teko,sans-serif;font-size:17px;font-weight:600;letter-spacing:2px;text-transform:uppercase;box-shadow:0 4px 16px rgba(0,112,186,0.3)">💰 Support The Big Chief</a>';
-h+='<p style="text-align:center;margin-top:6px;font-size:11px;color:var(--text-faint)">If this helped your racing, buy the crew chief a drink</p>';
+h+='<a href="https://trackbar.gumroad.com" target="_blank" rel="noopener" style="display:block;width:100%;margin-top:12px;padding:14px;background:var(--red);color:white;text-align:center;text-decoration:none;font-family:Russo One,sans-serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)">🏁 Get Pro Setups</a>';
+h+='<p style="text-align:center;margin-top:6px;font-size:11px;color:var(--text-dim)">Track-tested setup files for iRacing — download and load</p>';
+h+='<a href="https://paypal.me/BransonA" target="_blank" rel="noopener" style="display:block;width:100%;margin-top:8px;padding:10px;background:var(--card);text-align:center;text-decoration:none;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);border-left:3px solid var(--grey-dim)">💰 Tip the Crew Chief</a>';
 h+='<p class="ftr">The Big Chief · Powered by Allison Racing</p><div class="ftr-bar"></div>';
 $("results").innerHTML=h}
 
