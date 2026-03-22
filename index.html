@@ -72,7 +72,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--text)}
 .car-btn.on{background:linear-gradient(180deg,#1a0000,var(--card));color:var(--white);border-bottom-color:var(--red)}
 
 /* ═══ TABS ═══ */
-.tabs{display:flex;gap:3px;margin-bottom:18px;animation:fadeUp .5s ease .2s both}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:18px;animation:fadeUp .5s ease .2s both}
 .tab{flex:1;padding:12px 6px;border:none;border-left:3px solid transparent;cursor:pointer;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--card);color:var(--text-dim);transition:all .2s ease;text-align:center;position:relative}
 .tab:active{transform:scale(.96)}
 .tab.on{color:var(--white);border-left-color:var(--red);background:linear-gradient(90deg,rgba(204,0,0,0.1),var(--card))}
@@ -180,6 +180,21 @@ details .ref strong{color:var(--grey)}
 .fuel-tip{padding:12px 14px;border-left:2px solid var(--red);background:rgba(204,0,0,0.02);font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--grey);line-height:1.6;font-weight:500}
 .fuel-tip strong{color:var(--white)}
 
+/* ═══ DEBRIEF ═══ */
+.db-section{margin-bottom:16px}
+.db-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.db-pill{padding:10px 16px;border:none;border-bottom:3px solid transparent;background:var(--card);color:var(--text-dim);font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;user-select:none;clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%)}
+.db-pill:active{transform:scale(.94)}
+.db-pill.on{color:var(--white);border-bottom-color:var(--white);background:var(--card-lit)}
+.db-pill.loose.on{color:var(--red-bright);border-bottom-color:var(--red);background:linear-gradient(180deg,rgba(204,0,0,0.12),var(--card))}
+.db-pill.tight.on{color:var(--white);border-bottom-color:var(--white);background:linear-gradient(180deg,rgba(255,255,255,0.06),var(--card))}
+.db-pill.neutral.on{color:var(--grey);border-bottom-color:var(--grey)}
+.db-arrow{display:flex;justify-content:center;align-items:center;padding:10px 0;font-family:'Russo One',sans-serif;font-size:20px;color:var(--red);letter-spacing:4px}
+.db-result{padding:18px;background:var(--card);border-left:4px solid var(--red);margin-bottom:10px}
+.db-result .db-verdict{font-family:'Russo One',sans-serif;font-size:16px;color:var(--white);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.db-result .db-explain{font-family:'Rajdhani',sans-serif;font-size:14px;color:var(--grey);line-height:1.7}
+.db-result .db-explain strong{color:var(--white)}
+
 /* ═══ SESSION LOGGER ═══ */
 .log-form{display:flex;flex-direction:column;gap:12px}
 .log-field{display:flex;flex-direction:column;gap:4px}
@@ -261,7 +276,7 @@ details .ref strong{color:var(--grey)}
 
 <a href="Big%20Chief.apk" download style="display:block;width:100%;margin-bottom:12px;padding:10px;background:var(--card);text-align:center;text-decoration:none;font-family:Oswald,sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);border-left:3px solid var(--grey-dim)">📲 Download Android App</a>
 
-<div class="tabs"><button class="tab on" data-t="handling">Handling</button><button class="tab" data-t="gearing">Gearing</button><button class="tab" data-t="tires">Tires</button><button class="tab" data-t="fuel">Fuel</button><button class="tab" data-t="log">Log</button></div>
+<div class="tabs"><button class="tab on" data-t="handling">Handling</button><button class="tab" data-t="gearing">Gearing</button><button class="tab" data-t="tires">Tires</button><button class="tab" data-t="fuel">Fuel</button><button class="tab" data-t="debrief">Debrief</button><button class="tab" data-t="log">Log</button></div>
 <div id="p-handling">
 <div class="gap"><label class="lbl">Where in the corner?</label><div class="pills" id="corner-pills"></div></div>
 <div class="gap"><label class="lbl">How's the car handling?</label><div class="pills" id="handling-pills"></div></div>
@@ -299,6 +314,33 @@ details .ref strong{color:var(--grey)}
   <div class="fuel-field"><label>Safety Buffer (laps)</label><input type="number" class="fuel-input" id="fuel-buffer" placeholder="2" value="2" inputmode="numeric"></div>
 </div>
 <div id="fuel-results"></div>
+</div>
+<div id="p-debrief" class="hide">
+<label class="lbl">Run Length</label>
+<div class="db-section">
+  <input type="number" class="fuel-input" id="db-laps" placeholder="How many laps?" inputmode="numeric" style="max-width:200px;margin-bottom:0">
+</div>
+<label class="lbl">Start of Run — Overall Handling</label>
+<div class="db-section">
+  <div style="font-family:Oswald;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px">Car Was...</div>
+  <div class="db-row" id="db-start-h"></div>
+  <div style="font-family:Oswald;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px;margin-top:8px">How Bad?</div>
+  <div class="db-row" id="db-start-sev"></div>
+</div>
+<div class="db-arrow">▼ END OF RUN ▼</div>
+<label class="lbl">End of Run — Overall Handling</label>
+<div class="db-section">
+  <div style="font-family:Oswald;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px">Car Was...</div>
+  <div class="db-row" id="db-end-h"></div>
+  <div style="font-family:Oswald;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px;margin-top:8px">How Bad?</div>
+  <div class="db-row" id="db-end-sev"></div>
+</div>
+<label class="lbl">Tire Condition at End</label>
+<div class="db-section">
+  <div class="db-row" id="db-tires"></div>
+</div>
+<button class="go" id="db-go" disabled style="margin-top:8px">🏁 Analyze Run</button>
+<div id="db-results"></div>
 </div>
 <div id="p-log" class="hide">
 <label class="lbl">New Session Entry</label>
@@ -383,11 +425,12 @@ var c=C();
 $("car-sel").querySelectorAll(".car-btn").forEach(b=>b.classList.toggle("on",b.dataset.c===S.car));updateSilhouette();
 // Tabs
 document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.t===S.tab));
-$("p-handling").classList.toggle("hide",S.tab!=="handling");$("p-gearing").classList.toggle("hide",S.tab!=="gearing");$("p-tires").classList.toggle("hide",S.tab!=="tires");$("p-fuel").classList.toggle("hide",S.tab!=="fuel");$("p-log").classList.toggle("hide",S.tab!=="log");
-// Hide go button on log/fuel tabs
-$("go-btn").classList.toggle("hide",S.tab==="log"||S.tab==="fuel");
+$("p-handling").classList.toggle("hide",S.tab!=="handling");$("p-gearing").classList.toggle("hide",S.tab!=="gearing");$("p-tires").classList.toggle("hide",S.tab!=="tires");$("p-fuel").classList.toggle("hide",S.tab!=="fuel");$("p-debrief").classList.toggle("hide",S.tab!=="debrief");$("p-log").classList.toggle("hide",S.tab!=="log");
+// Hide go button on log/fuel/debrief tabs
+$("go-btn").classList.toggle("hide",S.tab==="log"||S.tab==="fuel"||S.tab==="debrief");
 if(S.tab==="log"){renderLog();$("results").classList.add("hide");return}
 if(S.tab==="fuel"){calcFuel();$("results").classList.add("hide");return}
+if(S.tab==="debrief"){$("results").classList.add("hide");return}
 // Pills
 $("corner-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.corner));
 $("handling-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.handling));
@@ -611,6 +654,158 @@ function calcFuel(){
   $(id).addEventListener("input",calcFuel);
   $(id).addEventListener("change",calcFuel);
 });
+
+// ═══ DEBRIEF ═══════════════════════════════════════════════
+var DB={startH:"",startSev:"",endH:"",endSev:"",tires:""};
+
+function mkDbPills(el,items,key,type){
+  el.innerHTML="";
+  items.forEach(function(v){
+    var b=document.createElement("button");
+    b.className="db-pill"+(type==="handling"?" "+v.toLowerCase():"");
+    b.textContent=v;
+    b.onclick=function(){
+      DB[key]=v;
+      el.querySelectorAll(".db-pill").forEach(function(p){p.classList.remove("on")});
+      b.classList.add("on");
+      checkDbReady();
+    };
+    el.appendChild(b);
+  });
+}
+mkDbPills($("db-start-h"),["Loose","Tight","Balanced"],"startH","handling");
+mkDbPills($("db-start-sev"),["Mild","Moderate","Severe"],"startSev","sev");
+mkDbPills($("db-end-h"),["Loose","Tight","Balanced"],"endH","handling");
+mkDbPills($("db-end-sev"),["Mild","Moderate","Severe"],"endSev","sev");
+mkDbPills($("db-tires"),["Still had life","Starting to go","Worn out","Destroyed"],"tires","tire");
+
+function checkDbReady(){
+  var laps=parseInt($("db-laps").value);
+  var startOk=DB.startH&&(DB.startH==="Balanced"||DB.startSev);
+  var endOk=DB.endH&&(DB.endH==="Balanced"||DB.endSev);
+  $("db-go").disabled=!(laps>0&&startOk&&endOk&&DB.tires);
+}
+$("db-laps").addEventListener("input",checkDbReady);
+
+$("db-go").onclick=function(){
+  var c=C();
+  var laps=parseInt($("db-laps").value);
+  var sh=DB.startH,ss=DB.startSev,eh=DB.endH,es=DB.endSev,tires=DB.tires;
+  var longRun=laps>15;
+  var isLMS=S.car==="lms",isSS=S.car==="ss",isMS=S.car==="ms";
+  
+  var h='<div class="sep"></div><div class="sec-lbl"><span>Run Debrief</span></div>';
+  
+  // Summary
+  var startTxt=sh==="Balanced"?"Balanced":(ss+" "+sh);
+  var endTxt=eh==="Balanced"?"Balanced":(es+" "+eh);
+  h+='<div class="db-result" style="border-left-color:var(--white)"><div class="db-verdict">'+laps+' Laps · '+c.name+'</div>';
+  h+='<div class="db-explain">Start: <strong>'+startTxt+'</strong> → End: <strong>'+endTxt+'</strong><br>Tires: <strong>'+tires+'</strong></div></div>';
+  
+  var tips=[];
+  var tiresGone=tires==="Worn out"||tires==="Destroyed";
+  var tiresOk=tires==="Still had life";
+  
+  // ═══ SCENARIO ANALYSIS ═══
+  
+  // 1. Balanced → Balanced
+  if(sh==="Balanced"&&eh==="Balanced"){
+    h+='<div class="db-result" style="border-left-color:#1a8a2e"><div class="db-verdict">✅ Perfect Run</div><div class="db-explain">The car was balanced from start to finish. Your setup is dialed in.</div></div>';
+    if(tiresGone)tips.push({a:"Tire Management",t:"Setup is great but tires are done. For longer races, raise cold pressures 0.5–1 psi all around and reduce camber slightly to extend tire life without changing the balance."});
+    else tips.push({a:"Keep This Setup",t:"Don't touch anything. Focus on smooth, consistent driving and hitting your marks every lap."});
+  }
+  
+  // 2. Balanced → Loose
+  else if(sh==="Balanced"&&eh==="Loose"){
+    h+='<div class="db-result"><div class="db-verdict">🔄 Lost Rear Grip Over the Run</div><div class="db-explain">The car started balanced but went <strong>'+es.toLowerCase()+' loose</strong> as the tires wore. The rear tires (especially RR) are degrading faster than the fronts.</div></div>';
+    tips.push({a:"Raise RR Cold Pressure",t:"Add 0.5–1 psi to the RR cold pressure. Higher cold pressure = less heat buildup = longer tire life on that corner."});
+    if(isLMS){tips.push({a:"Soften Rear Bump Stiffness",t:"Softer rear bump reduces tire scrub. Try 2-3 clicks softer."});tips.push({a:"Cross Weight",t:"If severe, reduce cross weight 0.3–0.5%. High cross weight overloads the RR."});}
+    if(isSS)tips.push({a:"Rear Stagger",t:"Decrease rear stagger slightly. A smaller RR works less hard through the corner."});
+    tips.push({a:"Reduce Right-Side Camber",t:"Back off RF and RR camber 0.25° to spread the load across more tire surface."});
+    if(es==="Severe")tips.push({a:"Long Run Strategy",t:"If this is for a race, consider starting the car slightly tight so it comes to you at the end. Raise cross weight 0.3–0.5% from where you are now."});
+  }
+  
+  // 3. Balanced → Tight
+  else if(sh==="Balanced"&&eh==="Tight"){
+    h+='<div class="db-result"><div class="db-verdict">🔄 Lost Front Grip Over the Run</div><div class="db-explain">The car started balanced but went <strong>'+es.toLowerCase()+' tight</strong> as the tires wore. The front tires (especially RF) are degrading faster than the rears.</div></div>';
+    tips.push({a:"Raise RF Cold Pressure",t:"Add 0.5–1 psi to the RF cold pressure to reduce heat buildup and extend front tire life."});
+    if(isLMS){tips.push({a:"Soften Front Bump Stiffness",t:"Softer front bump reduces front tire scrub. Try 2-3 clicks softer."});tips.push({a:"Front ARB Diameter",t:"Go to a smaller sway bar. Less front roll stiffness = less load on the front tires in the corners."});}
+    if(isSS)tips.push({a:"Sway Bar Size",t:"Reduce sway bar diameter. Less front roll stiffness extends front tire life."});
+    tips.push({a:"Reduce Front Camber",t:"Back off LF and RF camber 0.25° to reduce front tire wear."});
+    if(es==="Severe")tips.push({a:"Long Run Strategy",t:"Consider starting the car slightly loose so it comes to you. Lower cross weight 0.3–0.5% from where you are now."});
+  }
+  
+  // 4. Loose → Loose (persistent)
+  else if(sh==="Loose"&&eh==="Loose"){
+    h+='<div class="db-result"><div class="db-verdict">⚠️ Persistent Loose — Setup Issue</div><div class="db-explain">The car was loose at the start and still loose after '+laps+' laps. This isn\'t tire wear — your <strong>baseline setup is too loose</strong>.</div></div>';
+    tips.push({a:"Increase Cross Weight",t:"This is your biggest lever. Go up 0.3–0.5% to plant the LR/RF diagonal."});
+    if(isLMS){tips.push({a:"Rear Bump Stiffness",t:"Increase 2-4 clicks to control rear movement."});tips.push({a:"RR Spring Rate",t:"Stiffen the RR spring to plant the rear."});}
+    if(isSS){tips.push({a:"RR Leaf Spring Rate",t:"Stiffen to plant the rear."});tips.push({a:"Rear Stagger",t:"Decrease rear stagger to stabilize."});}
+    if(isMS){tips.push({a:"RR Spring Rate",t:"Stiffen to plant the rear."});tips.push({a:"Rear Stagger",t:"Decrease to stabilize."});}
+    if(es==="Severe"&&ss==="Severe")tips.push({a:"Major Reset",t:"If it's severe the whole run, you may need to raise cross weight a full 1%+ and re-evaluate springs and pressures from there."});
+    else if(ss==="Severe"&&(es==="Mild"||es==="Moderate"))tips.push({a:"Getting Better",t:"It went from severe to "+es.toLowerCase()+" — the tires warming up is helping. You're close. A small cross weight increase should finish the job."});
+  }
+  
+  // 5. Tight → Tight (persistent)
+  else if(sh==="Tight"&&eh==="Tight"){
+    h+='<div class="db-result"><div class="db-verdict">⚠️ Persistent Tight — Setup Issue</div><div class="db-explain">The car was tight at the start and still tight after '+laps+' laps. Your <strong>baseline setup is too tight</strong>.</div></div>';
+    tips.push({a:"Decrease Cross Weight",t:"Go down 0.3–0.5% to free the car and help it rotate."});
+    if(isLMS){tips.push({a:"Rear Bump Stiffness",t:"Decrease 2-4 clicks to let the rear come around."});tips.push({a:"RR Spring Rate",t:"Soften to let the rear work."});tips.push({a:"Front ARB Diameter",t:"Increase to push the front through the corner."});}
+    if(isSS){tips.push({a:"Leaf Spring Rates",t:"Soften rear leaf springs to free the car."});tips.push({a:"Rear Stagger",t:"Increase to help rotation."});tips.push({a:"Sway Bar Size",t:"Increase to push front through."});}
+    if(isMS){tips.push({a:"Rear Spring Rates",t:"Soften to free the car."});tips.push({a:"Rear Stagger",t:"Increase to help rotation."});}
+    if(es==="Severe"&&ss==="Severe")tips.push({a:"Major Reset",t:"Severe tight all run — drop cross weight a full 1%+ and soften the rear end significantly."});
+  }
+  
+  // 6. Loose → Tight (balance flip)
+  else if(sh==="Loose"&&eh==="Tight"){
+    h+='<div class="db-result"><div class="db-verdict">🔄 Balance Flip — Loose to Tight</div><div class="db-explain">The rear tires wore faster than the fronts early, then the front fell off. The wear rates are unbalanced — the <strong>rear wore in while the front wore out</strong>.</div></div>';
+    tips.push({a:"Equalize Wear Rates",t:"Raise RF cold pressure 0.5–1 psi to slow front wear. Lower RR cold pressure 0.5 psi to let the rear come up to temp faster."});
+    tips.push({a:"Reduce Front Camber",t:"Back off front camber 0.25° — the front tires are overworking."});
+    if(isLMS)tips.push({a:"Soften Front Bump",t:"Less front bump stiffness = less front tire scrub."});
+    tips.push({a:"Race Strategy",t:"For the race, set the car up slightly loose (lower cross weight) so it's tight at the end when it matters most — tight is faster than loose in traffic."});
+  }
+  
+  // 7. Tight → Loose (balance flip)
+  else if(sh==="Tight"&&eh==="Loose"){
+    h+='<div class="db-result"><div class="db-verdict">🔄 Balance Flip — Tight to Loose</div><div class="db-explain">The front tires wore faster than the rears early, then the rear fell off. The <strong>rear tires are degrading faster</strong> over the full run.</div></div>';
+    tips.push({a:"Equalize Wear Rates",t:"Raise RR cold pressure 0.5–1 psi to slow rear wear. Lower RF cold pressure 0.5 psi."});
+    tips.push({a:"Reduce Rear Camber/Load",t:"The rear is overworking. Reduce cross weight slightly and back off right-side camber."});
+    if(isLMS)tips.push({a:"Soften Rear Bump",t:"Less rear bump stiffness = less rear tire scrub."});
+    tips.push({a:"Race Strategy",t:"Set the car up slightly tight (raise cross weight) so it ends the race balanced or just barely loose — you can drive around a little loose, but tight kills your lap time."});
+  }
+  
+  // 8. Loose/Tight → Balanced (car came to you)
+  else if(sh!=="Balanced"&&eh==="Balanced"){
+    h+='<div class="db-result" style="border-left-color:#1a8a2e"><div class="db-verdict">✅ Car Came to You — Great Long Run Setup</div><div class="db-explain">Started <strong>'+ss.toLowerCase()+' '+sh.toLowerCase()+'</strong> and settled into <strong>balanced</strong>. This is the ideal race setup — it gets better as the run goes on.</div></div>';
+    tips.push({a:"Don't Change the Race Setup",t:"This is exactly what you want for a race. The car finds its window once the tires come in."});
+    tips.push({a:"Qualifying Setup",t:"For qualifying on fresh tires, you may want a separate setup. Adjust the opposite direction for 2-3 laps of peak grip."});
+  }
+  
+  // 9. Balanced → Balanced but tires destroyed
+  // (already covered above in scenario 1)
+  
+  // ═══ TIRE-SPECIFIC ADVICE ═══
+  if(tiresGone&&eh!=="Balanced"){
+    tips.push({a:"Tire Life is the Priority",t:"Your tires are "+tires.toLowerCase()+" after "+laps+" laps. Before chasing handling, you need to save the tires: raise all cold pressures 0.5–1 psi, reduce camber on the heavy-loaded corners, and focus on smooth driving inputs. A car with live tires and imperfect handling beats a perfectly set-up car on dead tires."});
+  }
+  if(tires==="Destroyed"){
+    tips.push({a:"Seriously — Save the Tires",t:"Destroyed tires means you either ran too long, pressures were too low, or you're overdriving (too much steering input, hard on the throttle, locking brakes). Run a shorter stint and compare, or raise all cold pressures 1-2 psi across the board."});
+  }
+  if(tiresOk&&eh!=="Balanced"){
+    tips.push({a:"Tires Are Fine — Pure Setup",t:"Since the tires still have life, this handling issue is 100% setup. You have room to make aggressive changes without worrying about tire wear masking the results."});
+  }
+  
+  // Output
+  if(tips.length>0){
+    h+='<label class="lbl" style="margin-top:12px">Recommendations</label>';
+    tips.forEach(function(s,i){
+      h+='<div class="sug" style="animation:fadeUp .4s ease '+(i*.06)+'s both"><div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px"><span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="adj">'+s.a+'</span></div><p class="tip">'+s.t+'</p></div>';
+    });
+  }
+  
+  $("db-results").innerHTML=h;
+  setTimeout(function(){$("db-results").scrollIntoView({behavior:"smooth"})},100);
+};
 
 // ═══ CAR SILHOUETTES ═══════════════════════════════════════
 var SILHOUETTES={
