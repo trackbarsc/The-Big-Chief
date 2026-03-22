@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bigchief-v3';
+const CACHE_NAME = 'bigchief-v4';
 const ASSETS = ['./index.html', './manifest.json', './logo.png', './icon-512.png', './icon-192.png', './icon-144.png', './icon-96.png', './icon-48.png'];
 
 self.addEventListener('install', e => {

@@ -1,13 +1,13 @@
 {
   "name": "The Big Chief - Powered by Allison Racing",
   "short_name": "Big Chief",
-  "description": "iRacing Late Model Stock Setup Advisor",
-  "id": "/The-Big-Chief/",
-  "start_url": "/The-Big-Chief/",
-  "scope": "/The-Big-Chief/",
+  "description": "iRacing Setup Advisor — Late Model Stock, Street Stock, Mini Stock",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#0c0c0e",
-  "theme_color": "#0c0c0e",
+  "background_color": "#080808",
+  "theme_color": "#080808",
   "orientation": "portrait",
   "icons": [
     {
