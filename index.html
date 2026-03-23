@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#080808">
+<meta name="theme-color" content="#2a2a2e">
 <meta name="description" content="iRacing Setup Advisor — Late Model Stock, Street Stock, Mini Stock">
 <title>The Big Chief - Powered by Allison Racing</title>
 <link rel="manifest" href="manifest.json">
@@ -14,10 +14,10 @@
 <style>
 :root{
   --red:#cc0000;--red-bright:#ff1a1a;--red-dark:#880000;
-  --white:#f0f0f0;--grey:#888;--grey-dark:#444;--grey-dim:#2a2a2a;
-  --bg:#080808;--card:#0f0f12;--card-lit:#161619;
-  --border:#1a1a1e;--border-lit:#2a2a30;
-  --text:#eee;--text-mid:#999;--text-dim:#555;
+  --white:#ffffff;--grey:#aaa;--grey-dark:#666;--grey-dim:#444;
+  --bg:#2a2a2e;--card:#222226;--card-lit:#2e2e33;
+  --border:#3a3a40;--border-lit:#4a4a50;
+  --text:#f5f5f5;--text-mid:#ccc;--text-dim:#888;
   --r:6px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -26,7 +26,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--text)}
 
 /* ═══ BACKGROUND ═══ */
 .bg{position:fixed;inset:0;z-index:0;background:var(--bg)}
-.bg::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3' height='3' fill='%230b0b0b'/%3E%3Crect x='3' y='3' width='3' height='3' fill='%230b0b0b'/%3E%3Crect x='3' width='3' height='3' fill='%230c0c0c'/%3E%3Crect y='3' width='3' height='3' fill='%230c0c0c'/%3E%3C/svg%3E");background-size:6px 6px}
+.bg::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3' height='3' fill='%23282830'/%3E%3Crect x='3' y='3' width='3' height='3' fill='%23282830'/%3E%3Crect x='3' width='3' height='3' fill='%232c2c34'/%3E%3Crect y='3' width='3' height='3' fill='%232c2c34'/%3E%3C/svg%3E");background-size:6px 6px}
 .bg .stripe{position:absolute;top:0;bottom:0;left:14px;width:5px;background:linear-gradient(180deg,var(--red),rgba(204,0,0,0.15) 50%,transparent);z-index:1}
 .bg .stripe2{position:absolute;top:0;bottom:0;left:23px;width:2px;background:linear-gradient(180deg,var(--red),rgba(204,0,0,0.08) 40%,transparent);z-index:1}
 .bg .glow{position:absolute;top:-15%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(204,0,0,0.05) 0%,transparent 50%);border-radius:50%;filter:blur(60px)}
@@ -73,24 +73,24 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--text)}
 
 /* ═══ TABS ═══ */
 .tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:18px;animation:fadeUp .5s ease .2s both}
-.tab{flex:1;padding:12px 6px;border:none;border-left:3px solid transparent;cursor:pointer;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--card);color:var(--text-dim);transition:all .2s ease;text-align:center;position:relative}
+.tab{flex:1;padding:14px 6px;border:none;border-left:3px solid transparent;cursor:pointer;font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--card);color:var(--text-dim);transition:all .2s ease;text-align:center;position:relative}
 .tab:active{transform:scale(.96)}
 .tab.on{color:var(--white);border-left-color:var(--red);background:linear-gradient(90deg,rgba(204,0,0,0.1),var(--card))}
 .tab.on::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--red),transparent)}
 
 /* ═══ LABELS ═══ */
-.lbl{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--grey)}
-.lbl::before{content:"";width:12px;height:2px;background:var(--red)}
+.lbl{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--grey)}
+.lbl::before{content:"";width:14px;height:2px;background:var(--red)}
 
 /* ═══ PILLS ═══ */
-.pills{display:flex;gap:6px;flex-wrap:wrap}
-.pill{padding:12px 20px;border:none;border-bottom:3px solid transparent;background:var(--card);color:var(--text-dim);font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s ease;user-select:none;position:relative;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:14px 22px;border:none;border-bottom:3px solid transparent;background:var(--card);color:var(--text-dim);font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s ease;user-select:none;position:relative;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
 .pill:active{transform:scale(.94)}
 .pill.on{color:var(--white);border-bottom-color:var(--white);background:var(--card-lit)}
 .pill.loose.on{color:var(--red-bright);border-bottom-color:var(--red);background:linear-gradient(180deg,rgba(204,0,0,0.12),var(--card))}
 .pill.tight.on{color:var(--white);border-bottom-color:var(--white);background:linear-gradient(180deg,rgba(255,255,255,0.06),var(--card))}
 .pill.neutral.on{color:var(--grey);border-bottom-color:var(--grey);background:var(--card-lit)}
-.pill.sm{font-size:13px;padding:10px 14px}
+.pill.sm{font-size:14px;padding:12px 16px}
 
 /* ═══ SEVERITY ═══ */
 .sev-btn{padding:12px 14px;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;gap:3px;min-width:85px;user-select:none;border:none;border-left:3px solid transparent;background:var(--card)}
@@ -114,47 +114,47 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--text)}
 .rst:active{background:var(--card-lit)}
 
 /* ═══ RESULT CARDS — PIT BOARD STYLE ═══ */
-.card{margin-bottom:14px;background:var(--card);border:none;border-left:4px solid var(--red);position:relative;overflow:hidden}
+.card{margin-bottom:18px;background:var(--card);border:none;border-left:4px solid var(--red);position:relative;overflow:hidden;padding:22px 20px}
 .card::before{content:"";position:absolute;top:0;right:0;width:80px;height:80px;opacity:.02;background:repeating-linear-gradient(-45deg,var(--white),var(--white) 2px,transparent 2px,transparent 8px)}
-.card .card-inner{padding:20px 18px;position:relative;z-index:1}
+.card .card-inner{position:relative;z-index:1}
 /* Pit board header bar */
-.card .card-bar{background:linear-gradient(90deg,rgba(204,0,0,0.15),transparent);padding:8px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.card .card-bar h3{font-family:'Russo One',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase}
-.card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:8px;position:relative;z-index:1}
-.card-hdr h3{font-family:'Russo One',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase}
+.card .card-bar{background:linear-gradient(90deg,rgba(204,0,0,0.15),transparent);padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.card .card-bar h3{font-family:'Russo One',sans-serif;font-size:17px;letter-spacing:2px;text-transform:uppercase}
+.card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;position:relative;z-index:1}
+.card-hdr h3{font-family:'Russo One',sans-serif;font-size:17px;letter-spacing:2px;text-transform:uppercase}
 .sev-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;margin-bottom:14px;position:relative;z-index:1;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-left:3px solid}
 .sev-badge span{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
 .intro-text{color:var(--grey);font-size:13px;line-height:1.7;margin-bottom:16px;font-style:italic;position:relative;z-index:1;padding-left:14px;border-left:2px solid rgba(204,0,0,0.25)}
 
 /* ═══ PIT BOARD SUGGESTION ITEMS ═══ */
-.sug{padding:14px 16px;margin-bottom:4px;background:rgba(255,255,255,0.01);border:none;border-left:2px solid var(--border);transition:all .2s ease;position:relative;z-index:1}
+.sug{padding:16px 18px;margin-bottom:6px;background:rgba(255,255,255,0.01);border:none;border-left:2px solid var(--border);transition:all .2s ease;position:relative;z-index:1}
 .sug:hover{border-left-color:var(--red);background:rgba(204,0,0,0.02)}
-.sug .num{color:var(--red);font-family:'Russo One',sans-serif;font-size:14px;min-width:28px;opacity:.5}
-.sug .adj{color:var(--white);font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
-.sug .tip{color:#888;font-size:13px;line-height:1.7;margin-left:38px;margin-top:4px;font-family:'Rajdhani',sans-serif;font-weight:500}
+.sug .num{color:var(--red);font-family:'Russo One',sans-serif;font-size:15px;min-width:30px;opacity:.5}
+.sug .adj{color:var(--white);font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.sug .tip{color:#bbb;font-size:14.5px;line-height:1.75;margin-left:40px;margin-top:6px;font-family:'Rajdhani',sans-serif;font-weight:500}
 
 /* ═══ INFO / NEUTRAL BOXES ═══ */
-.ibox{padding:14px 16px;margin-bottom:8px;position:relative;z-index:1}
-.ibox .il{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px}
-.ibox p{color:#aaa;font-size:13.5px;line-height:1.65;font-family:'Rajdhani',sans-serif;font-weight:500}
-.nbox{padding:20px;background:var(--card);border-left:4px solid var(--grey)}
-.nbox h4{font-family:'Russo One',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);display:flex;align-items:center;gap:8px;margin-bottom:8px;text-transform:uppercase}
-.nbox p{color:var(--grey);font-size:13px;line-height:1.6;font-family:'Rajdhani',sans-serif}
+.ibox{padding:16px 18px;margin-bottom:10px;position:relative;z-index:1}
+.ibox .il{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.ibox p{color:#ccc;font-size:14.5px;line-height:1.7;font-family:'Rajdhani',sans-serif;font-weight:500}
+.nbox{padding:24px;background:var(--card);border-left:4px solid var(--grey)}
+.nbox h4{font-family:'Russo One',sans-serif;font-size:17px;letter-spacing:2px;color:var(--white);display:flex;align-items:center;gap:8px;margin-bottom:10px;text-transform:uppercase}
+.nbox p{color:#bbb;font-size:14.5px;line-height:1.7;font-family:'Rajdhani',sans-serif}
 
 /* ═══ DIVIDERS / SECTION LABELS ═══ */
-.sep{width:100%;height:3px;margin:16px 0 18px;background:linear-gradient(90deg,var(--red),var(--red-dark) 30%,transparent 70%)}
-.sec-lbl{font-family:'Russo One',sans-serif;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:18px;text-align:center;position:relative;padding:8px 0}
+.sep{width:100%;height:3px;margin:20px 0 22px;background:linear-gradient(90deg,var(--red),var(--red-dark) 30%,transparent 70%)}
+.sec-lbl{font-family:'Russo One',sans-serif;font-size:15px;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:22px;text-align:center;position:relative;padding:10px 0}
 .sec-lbl::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(204,0,0,0.2),transparent)}
-.sec-lbl span{background:var(--bg);padding:0 16px;position:relative}
+.sec-lbl span{background:#2a2a2e;padding:0 18px;position:relative}
 
 /* ═══ DETAILS ═══ */
 details{margin-bottom:16px}
 details summary{font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);cursor:pointer;padding:12px 0}
-details .ref{padding:16px;background:var(--card);font-size:12px;color:#555;line-height:1.85;font-family:'Rajdhani',sans-serif;font-weight:500}
-details .ref strong{color:var(--grey)}
+details .ref{padding:16px;background:var(--card);font-size:12px;color:#999;line-height:1.85;font-family:'Rajdhani',sans-serif;font-weight:500}
+details .ref strong{color:#ccc}
 
 /* ═══ FOOTER ═══ */
-.ftr{text-align:center;margin-top:20px;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#1a1a1a}
+.ftr{text-align:center;margin-top:20px;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#444}
 .ftr-bar{height:8px;margin:16px -14px 0;background-image:url("data:image/svg+xml,%3Csvg width='16' height='8' viewBox='0 0 16 8' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='8' height='8' fill='%23ccc'/%3E%3Crect x='8' width='8' height='8' fill='%23111'/%3E%3C/svg%3E");background-size:16px 8px;opacity:.1}
 
 /* ═══ TIRE / FUEL INPUTS ═══ */
@@ -162,22 +162,22 @@ details .ref strong{color:var(--grey)}
 .tire-corner{padding:14px;background:var(--card);border-left:3px solid var(--border)}
 .tire-corner.rear{border-left-color:var(--grey-dim)}
 .tire-corner-label{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
-.tire-input,.fuel-input{width:100%;padding:10px 12px;background:#0a0a0a;border:none;border-bottom:2px solid var(--border);color:var(--white);font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;text-align:center;transition:all .2s ease}
+.tire-input,.fuel-input{width:100%;padding:10px 12px;background:#1e1e22;border:none;border-bottom:2px solid var(--border);color:var(--white);font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;text-align:center;transition:all .2s ease}
 .tire-input:focus,.fuel-input:focus{outline:0;border-bottom-color:var(--red)}
-.tire-input::placeholder,.fuel-input::placeholder{color:#2a2a2a}
+.tire-input::placeholder,.fuel-input::placeholder{color:#555}
 .fuel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .fuel-field{display:flex;flex-direction:column;gap:4px}
 .fuel-field.wide{grid-column:1/-1}
 .fuel-field label{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark)}
-.fuel-result{padding:16px;background:var(--card);border-left:4px solid var(--red);margin-bottom:8px}
-.fuel-result .fuel-big{font-family:'Russo One',sans-serif;font-size:28px;color:var(--white);line-height:1}
-.fuel-result .fuel-unit{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-top:3px}
-.fuel-result .fuel-label{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:4px}
+.fuel-result{padding:18px;background:var(--card);border-left:4px solid var(--red);margin-bottom:10px}
+.fuel-result .fuel-big{font-family:'Russo One',sans-serif;font-size:30px;color:var(--white);line-height:1}
+.fuel-result .fuel-unit{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-top:4px}
+.fuel-result .fuel-label{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px}
 .fuel-ok{border-left-color:#1a8a2e}
 .fuel-warn{border-left-color:#cc8800}
 .fuel-stop{border-left-color:var(--red)}
 .fuel-grid-results{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.fuel-tip{padding:12px 14px;border-left:2px solid var(--red);background:rgba(204,0,0,0.02);font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--grey);line-height:1.6;font-weight:500}
+.fuel-tip{padding:14px 16px;border-left:2px solid var(--red);background:rgba(204,0,0,0.04);font-family:'Rajdhani',sans-serif;font-size:14.5px;color:#bbb;line-height:1.7;font-weight:500}
 .fuel-tip strong{color:var(--white)}
 
 /* ═══ DEBRIEF ═══ */
@@ -190,9 +190,9 @@ details .ref strong{color:var(--grey)}
 .db-pill.tight.on{color:var(--white);border-bottom-color:var(--white);background:linear-gradient(180deg,rgba(255,255,255,0.06),var(--card))}
 .db-pill.neutral.on{color:var(--grey);border-bottom-color:var(--grey)}
 .db-arrow{display:flex;justify-content:center;align-items:center;padding:10px 0;font-family:'Russo One',sans-serif;font-size:20px;color:var(--red);letter-spacing:4px}
-.db-result{padding:18px;background:var(--card);border-left:4px solid var(--red);margin-bottom:10px}
-.db-result .db-verdict{font-family:'Russo One',sans-serif;font-size:16px;color:var(--white);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
-.db-result .db-explain{font-family:'Rajdhani',sans-serif;font-size:14px;color:var(--grey);line-height:1.7}
+.db-result{padding:20px;background:var(--card);border-left:4px solid var(--red);margin-bottom:12px}
+.db-result .db-verdict{font-family:'Russo One',sans-serif;font-size:17px;color:var(--white);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.db-result .db-explain{font-family:'Rajdhani',sans-serif;font-size:15px;color:#bbb;line-height:1.75}
 .db-result .db-explain strong{color:var(--white)}
 
 
@@ -200,9 +200,9 @@ details .ref strong{color:var(--grey)}
 .log-form{display:flex;flex-direction:column;gap:12px}
 .log-field{display:flex;flex-direction:column;gap:4px}
 .log-field label{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark)}
-.log-input,.log-textarea{width:100%;padding:10px 14px;background:#0a0a0a;border:none;border-bottom:2px solid var(--border);color:var(--white);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;transition:all .2s ease}
+.log-input,.log-textarea{width:100%;padding:10px 14px;background:#1e1e22;border:none;border-bottom:2px solid var(--border);color:var(--white);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;transition:all .2s ease}
 .log-input:focus,.log-textarea:focus{outline:0;border-bottom-color:var(--red)}
-.log-input::placeholder,.log-textarea::placeholder{color:#2a2a2a}
+.log-input::placeholder,.log-textarea::placeholder{color:#555}
 .log-textarea{min-height:70px;resize:vertical;line-height:1.5}
 .log-save{padding:14px;border:none;font-family:'Russo One',sans-serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;background:var(--red);color:white;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
 .log-save:active{transform:scale(.97)}
@@ -211,15 +211,15 @@ details .ref strong{color:var(--grey)}
 .log-entry .log-date{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px}
 .log-entry .log-meta{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:3px}
 .log-entry .log-meta span{color:var(--red)}
-.log-entry .log-issue{font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--grey);margin-bottom:3px}
-.log-entry .log-changes{font-family:'Rajdhani',sans-serif;font-size:13px;color:#bbb;line-height:1.5}
-.log-entry .log-notes{font-family:'Rajdhani',sans-serif;font-size:12px;color:var(--grey-dark);font-style:italic;margin-top:4px;padding-top:4px;border-top:1px solid var(--border)}
-.log-del{position:absolute;top:10px;right:10px;background:none;border:1px solid #222;color:#444;font-size:10px;padding:2px 6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.log-entry .log-issue{font-family:'Rajdhani',sans-serif;font-size:13px;color:#bbb;margin-bottom:3px}
+.log-entry .log-changes{font-family:'Rajdhani',sans-serif;font-size:13px;color:#ddd;line-height:1.5}
+.log-entry .log-notes{font-family:'Rajdhani',sans-serif;font-size:12px;color:#999;font-style:italic;margin-top:4px;padding-top:4px;border-top:1px solid var(--border)}
+.log-del{position:absolute;top:10px;right:10px;background:none;border:1px solid #555;color:#888;font-size:10px;padding:2px 6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase}
 .log-del:active{border-color:var(--red);color:var(--red)}
 .log-empty{text-align:center;padding:24px;color:var(--grey-dark);font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase}
-.log-divider{height:2px;background:linear-gradient(90deg,var(--red),#1a1a1a 50%,transparent);margin:18px 0}
+.log-divider{height:2px;background:linear-gradient(90deg,var(--red),#444 50%,transparent);margin:18px 0}
 
-.gap{margin-bottom:20px}.hide{display:none!important}
+.gap{margin-bottom:24px}.hide{display:none!important}
 </style>
 </head>
 <body>
@@ -246,27 +246,27 @@ details .ref strong{color:var(--grey)}
 <div class="tach">
 <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
   <!-- Gauge arc background -->
-  <path d="M 15 80 A 65 65 0 0 1 145 80" fill="none" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 15 80 A 65 65 0 0 1 145 80" fill="none" stroke="#3a3a40" stroke-width="8" stroke-linecap="round"/>
   <!-- Green zone -->
-  <path d="M 15 80 A 65 65 0 0 1 55 25" fill="none" stroke="#1a4a1a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 15 80 A 65 65 0 0 1 55 25" fill="none" stroke="#1a5a1a" stroke-width="8" stroke-linecap="round"/>
   <!-- Yellow zone -->
-  <path d="M 55 25 A 65 65 0 0 1 105 25" fill="none" stroke="#4a4a0a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 55 25 A 65 65 0 0 1 105 25" fill="none" stroke="#5a5a0a" stroke-width="8" stroke-linecap="round"/>
   <!-- Red zone -->
-  <path d="M 105 25 A 65 65 0 0 1 145 80" fill="none" stroke="#4a0a0a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 105 25 A 65 65 0 0 1 145 80" fill="none" stroke="#5a0a0a" stroke-width="8" stroke-linecap="round"/>
   <!-- Redline -->
   <path d="M 120 35 A 65 65 0 0 1 145 80" fill="none" stroke="var(--red)" stroke-width="8" stroke-linecap="round" opacity=".6"/>
   <!-- Tick marks -->
-  <line x1="18" y1="72" x2="24" y2="72" stroke="#333" stroke-width="1.5"/>
-  <line x1="28" y1="45" x2="33" y2="48" stroke="#333" stroke-width="1.5"/>
-  <line x1="52" y1="26" x2="55" y2="31" stroke="#333" stroke-width="1.5"/>
-  <line x1="80" y1="18" x2="80" y2="24" stroke="#333" stroke-width="1.5"/>
-  <line x1="108" y1="26" x2="105" y2="31" stroke="#333" stroke-width="1.5"/>
-  <line x1="132" y1="45" x2="127" y2="48" stroke="#333" stroke-width="1.5"/>
-  <line x1="142" y1="72" x2="136" y2="72" stroke="#333" stroke-width="1.5"/>
+  <line x1="18" y1="72" x2="24" y2="72" stroke="#555" stroke-width="1.5"/>
+  <line x1="28" y1="45" x2="33" y2="48" stroke="#555" stroke-width="1.5"/>
+  <line x1="52" y1="26" x2="55" y2="31" stroke="#555" stroke-width="1.5"/>
+  <line x1="80" y1="18" x2="80" y2="24" stroke="#555" stroke-width="1.5"/>
+  <line x1="108" y1="26" x2="105" y2="31" stroke="#555" stroke-width="1.5"/>
+  <line x1="132" y1="45" x2="127" y2="48" stroke="#555" stroke-width="1.5"/>
+  <line x1="142" y1="72" x2="136" y2="72" stroke="#555" stroke-width="1.5"/>
   <!-- Needle -->
   <line class="needle" x1="80" y1="80" x2="80" y2="22" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"/>
   <!-- Center dot -->
-  <circle cx="80" cy="80" r="5" fill="#1a1a1a" stroke="var(--red)" stroke-width="1.5"/>
+  <circle cx="80" cy="80" r="5" fill="#333" stroke="var(--red)" stroke-width="1.5"/>
 </svg>
 <div class="rpm-text">RPM</div>
 </div>
@@ -279,9 +279,10 @@ details .ref strong{color:var(--grey)}
 
 <div class="tabs"><button class="tab on" data-t="handling">Handling</button><button class="tab" data-t="gearing">Gearing</button><button class="tab" data-t="tires">Tires</button><button class="tab" data-t="fuel">Fuel</button><button class="tab" data-t="debrief">Debrief</button><button class="tab" data-t="log">Log</button></div>
 <div id="p-handling">
-<div class="gap"><label class="lbl">Where in the corner?</label><div class="pills" id="corner-pills"></div></div>
-<div class="gap"><label class="lbl">How's the car handling?</label><div class="pills" id="handling-pills"></div></div>
-<div id="sev-section" class="hide"><div class="gap"><label class="lbl">How bad is it?</label><div class="pills" id="sev-pills"></div></div></div>
+<div class="gap" style="padding:16px;background:var(--card);border-left:3px solid var(--red)"><label class="lbl" style="margin-bottom:14px">Entry — Turning In</label><div class="pills" id="h-entry"></div><div class="pills hide" id="h-entry-sev" style="margin-top:10px"></div></div>
+<div class="gap" style="padding:16px;background:var(--card);border-left:3px solid var(--white)"><label class="lbl" style="margin-bottom:14px">Center — Mid Corner</label><div class="pills" id="h-center"></div><div class="pills hide" id="h-center-sev" style="margin-top:10px"></div></div>
+<div class="gap" style="padding:16px;background:var(--card);border-left:3px solid var(--grey)"><label class="lbl" style="margin-bottom:14px">Exit — On Throttle</label><div class="pills" id="h-exit"></div><div class="pills hide" id="h-exit-sev" style="margin-top:10px"></div></div>
+<div id="sev-section" class="hide"></div>
 <div id="neutral-msg" class="hide"></div>
 </div>
 <div id="p-gearing" class="hide">
@@ -397,7 +398,7 @@ const TRACKS=[{n:"Auto Club Speedway",l:2.0,t:"superspeedway"},{n:"Bristol Motor
 const SEV={mild:{icon:"🟡",color:"#d4a827",desc:"Slightly off — needs a nudge"},moderate:{icon:"🟠",color:"#e07020",desc:"Noticeable — costing time"},severe:{icon:"🔴",color:"#e8281c",desc:"Undriveable — can't hold it"}};
 
 // ═══ STATE ══════════════════════════════════════════════════
-let S={car:"lms",tab:"handling",corner:"",handling:"",sev:"",track:"",chip:"",show:false};
+let S={car:"lms",tab:"handling",hEntry:"",hCenter:"",hExit:"",sEntry:"",sCenter:"",sExit:"",track:"",chip:"",show:false};
 const $=id=>document.getElementById(id);
 function C(){return CARS[S.car]}
 
@@ -407,19 +408,22 @@ function isUnlocked(){return true}
 function isTabLocked(){return false}
 
 // ═══ BUILD UI ═══════════════════════════════════════════════
-// Car selector
 var csel=$("car-sel");
-["lms","ss","ms"].forEach(k=>{var b=document.createElement("button");b.className="car-btn"+(S.car===k?" on":"");b.dataset.c=k;b.textContent=CARS[k].name;b.onclick=()=>{S.car=k;S.show=false;S.corner="";S.handling="";S.sev="";render()};csel.appendChild(b)});
+["lms","ss","ms"].forEach(k=>{var b=document.createElement("button");b.className="car-btn"+(S.car===k?" on":"");b.dataset.c=k;b.textContent=CARS[k].name;b.onclick=()=>{S.car=k;S.show=false;S.hEntry="";S.hCenter="";S.hExit="";S.sEntry="";S.sCenter="";S.sExit="";render()};csel.appendChild(b)});
 
-function mkPills(el,items,grp,cls){el.innerHTML="";items.forEach(v=>{var b=document.createElement("button");b.className="pill"+(cls?" "+cls:"");if(grp==="handling"){b.textContent=({Loose:"🔥 ",Tight:"🧊 ",Neutral:"✅ "}[v]||"")+v;b.classList.add(v.toLowerCase())}else b.textContent=v;b.dataset.v=v;b.onclick=()=>{if(grp==="corner"){S.corner=v;S.sev=""}else if(grp==="handling"){S.handling=v;S.sev=""}else if(grp==="chip")S.chip=v;S.show=false;render()};el.appendChild(b)})}
-function mkSev(){var el=$("sev-pills");el.innerHTML="";["mild","moderate","severe"].forEach(v=>{var s=SEV[v],b=document.createElement("button");b.className="sev-btn";b.dataset.v=v;b.innerHTML='<span class="sl">'+s.icon+" "+v+'</span><span class="sd">'+s.desc+'</span>';b.onclick=()=>{S.sev=v;S.show=false;render()};el.appendChild(b)})}
+function mkHPills(el,hKey,sKey){el.innerHTML="";["Loose","Tight","Neutral"].forEach(v=>{var b=document.createElement("button");b.className="pill "+v.toLowerCase();b.textContent=({Loose:"🔥 ",Tight:"🧊 ",Neutral:"✅ "}[v])+v;b.dataset.v=v;b.onclick=()=>{S[hKey]=v;S[sKey]="";S.show=false;render()};el.appendChild(b)})}
+function mkSevPills(el,sKey){el.innerHTML="";["Mild","Moderate","Severe"].forEach(v=>{var s=SEV[v.toLowerCase()];var b=document.createElement("button");b.className="pill sm";b.textContent=s.icon+" "+v;b.dataset.v=v.toLowerCase();b.onclick=()=>{S[sKey]=v.toLowerCase();S.show=false;render()};el.appendChild(b)})}
+function mkPills(el,items,grp,cls){el.innerHTML="";items.forEach(v=>{var b=document.createElement("button");b.className="pill"+(cls?" "+cls:"");b.textContent=v;b.dataset.v=v;b.onclick=()=>{if(grp==="chip")S.chip=v;S.show=false;render()};el.appendChild(b)})}
 
 TRACKS.forEach(t=>{var o=document.createElement("option");o.value=t.n;o.textContent=t.n+" ("+t.l+" mi)";$("track-sel").appendChild(o)});
 $("track-sel").onchange=e=>{S.track=e.target.value;S.show=false;render()};
-mkPills($("corner-pills"),["Entry","Center","Exit"],"corner");
-mkPills($("handling-pills"),["Loose","Tight","Neutral"],"handling");
+mkHPills($("h-entry"),"hEntry","sEntry");
+mkHPills($("h-center"),"hCenter","sCenter");
+mkHPills($("h-exit"),"hExit","sExit");
+mkSevPills($("h-entry-sev"),"sEntry");
+mkSevPills($("h-center-sev"),"sCenter");
+mkSevPills($("h-exit-sev"),"sExit");
 mkPills($("chip-pills"),["Not touching it","Barely touching it","Hard on it"],"chip","sm");
-mkSev();
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;S.show=false;render()});
 $("go-btn").onclick=()=>{S.show=true;render();setTimeout(()=>$("results").scrollIntoView({behavior:"smooth"}),100)};
 document.querySelectorAll(".tire-input").forEach(inp=>inp.addEventListener("input",()=>{S.show=false;render()}));
@@ -437,16 +441,25 @@ $("go-btn").classList.toggle("hide",S.tab==="log"||S.tab==="fuel"||S.tab==="debr
 if(S.tab==="log"){renderLog();$("results").classList.add("hide");return}
 if(S.tab==="fuel"){calcFuel();$("results").classList.add("hide");return}
 if(S.tab==="debrief"){$("results").classList.add("hide");return}
-// Pills
-$("corner-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.corner));
-$("handling-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.handling));
+// Pills — 3-phase handling with per-phase severity
+$("h-entry").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.hEntry));
+$("h-center").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.hCenter));
+$("h-exit").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.hExit));
+// Show/hide severity per phase
+$("h-entry-sev").classList.toggle("hide",!S.hEntry||S.hEntry==="Neutral");
+$("h-center-sev").classList.toggle("hide",!S.hCenter||S.hCenter==="Neutral");
+$("h-exit-sev").classList.toggle("hide",!S.hExit||S.hExit==="Neutral");
+$("h-entry-sev").querySelectorAll(".pill").forEach(p=>{p.classList.toggle("on",p.dataset.v===S.sEntry)});
+$("h-center-sev").querySelectorAll(".pill").forEach(p=>{p.classList.toggle("on",p.dataset.v===S.sCenter)});
+$("h-exit-sev").querySelectorAll(".pill").forEach(p=>{p.classList.toggle("on",p.dataset.v===S.sExit)});
 $("chip-pills").querySelectorAll(".pill").forEach(p=>p.classList.toggle("on",p.dataset.v===S.chip));
-var showSev=S.corner&&S.handling&&S.handling!=="Neutral";
-$("sev-section").classList.toggle("hide",!showSev);
-$("sev-pills").querySelectorAll(".sev-btn").forEach(b=>{var v=b.dataset.v,s=SEV[v],on=S.sev===v;b.style.border="2px solid "+(on?s.color:"rgba(255,255,255,0.08)");b.style.background=on?"linear-gradient(135deg,"+s.color+"20,"+s.color+"08)":"rgba(255,255,255,0.02)";b.style.animation=on?"goldPulse 2s ease-in-out infinite":"none";b.style.boxShadow=on?"0 0 16px "+s.color+"30":"none";b.querySelector(".sl").style.color=on?s.color:"#908a80";b.querySelector(".sd").style.color=on?s.color+"cc":"var(--text-faint)"});
-if(S.handling==="Neutral"&&S.corner){$("neutral-msg").classList.remove("hide");$("neutral-msg").innerHTML='<div class="nbox"><h4>✅ CAR IS BALANCED</h4><p>Neutral on '+S.corner.toLowerCase()+'? You\'re in the zone. Smooth hands, progressive throttle, consistent braking. '+c.name+' rev limit: '+c.rpm+' RPM.</p></div>'}else{$("neutral-msg").classList.add("hide");$("neutral-msg").innerHTML=""}
+var allNeutral=S.hEntry==="Neutral"&&S.hCenter==="Neutral"&&S.hExit==="Neutral";
+var allPicked=S.hEntry&&S.hCenter&&S.hExit;
+// Each non-neutral phase needs its severity picked
+var sevOk=(!S.hEntry||S.hEntry==="Neutral"||S.sEntry)&&(!S.hCenter||S.hCenter==="Neutral"||S.sCenter)&&(!S.hExit||S.hExit==="Neutral"||S.sExit);
+if(allNeutral&&allPicked){$("neutral-msg").classList.remove("hide");$("neutral-msg").innerHTML='<div class="nbox"><h4>✅ CAR IS BALANCED</h4><p>Neutral through the whole corner? You\'re in the zone. Smooth hands, progressive throttle, consistent braking. '+c.name+' rev limit: '+c.rpm+' RPM.</p></div>'}else{$("neutral-msg").classList.add("hide");$("neutral-msg").innerHTML=""}
 
-var hOk=S.corner&&S.handling&&S.handling!=="Neutral"&&S.sev,gOk=S.track&&S.chip;
+var hOk=allPicked&&!allNeutral&&sevOk,gOk=S.track&&S.chip;
 var tOk=false;
 if(S.tab==="tires"){var lfc=parseFloat($("lf-cold").value),rfc=parseFloat($("rf-cold").value),lrc=parseFloat($("lr-cold").value),rrc=parseFloat($("rr-cold").value),lfh=parseFloat($("lf-hot").value),rfh=parseFloat($("rf-hot").value),lrh=parseFloat($("lr-hot").value),rrh=parseFloat($("rr-hot").value);tOk=!isNaN(lfc)&&!isNaN(rfc)&&!isNaN(lrc)&&!isNaN(rrc)&&!isNaN(lfh)&&!isNaN(rfh)&&!isNaN(lrh)&&!isNaN(rrh)}
 var can=S.tab==="handling"?hOk:(S.tab==="gearing"?gOk:tOk);
@@ -455,13 +468,219 @@ if(!S.show){$("results").classList.add("hide");$("results").innerHTML="";return}
 $("results").classList.remove("hide");
 var h='<div class="sep"></div><div class="sec-lbl"><span>Big Chief Says</span></div>';
 
-// === HANDLING ===
-if(S.tab==="handling"&&hOk){var key=S.corner+"-"+S.handling,grp=c.adv[key];if(grp){var adv=grp[S.sev],col=S.handling==="Loose"?"var(--red)":"var(--blue)",ico=S.handling==="Loose"?"⚠️":"🔒",sv=SEV[S.sev];
-h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">'+ico+'</span><h3 style="color:'+col+'">'+grp.title+' <span style="font-size:14px;color:var(--text-faint)">('+c.name+')</span></h3></div>';
-h+='<div class="sev-badge" style="background:'+sv.color+'15;border:1px solid '+sv.color+'40"><span style="font-size:12px">'+sv.icon+'</span><span style="color:'+sv.color+'">'+S.sev+' severity</span></div>';
-h+='<p class="intro-text">'+adv.intro+'</p>';
-adv.items.forEach(function(s,i){h+='<div class="sug" style="animation:fadeIn .4s ease '+(i*.06)+'s both"><div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px"><span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="adj">'+s.a+'</span></div><p class="tip">'+s.t+'</p></div>'});
-h+='</div>'}}
+// === HANDLING — 3-PHASE COMBINED ANALYSIS ===
+if(S.tab==="handling"&&hOk){
+var eH=S.hEntry,cH=S.hCenter,xH=S.hExit;
+var eSev=S.sEntry||"mild",cSev=S.sCenter||"mild",xSev=S.sExit||"mild";
+var isLMS=S.car==="lms",isSS=S.car==="ss",isMS=S.car==="ms";
+function isSv(s){return s==="severe"}function isMd(s){return s==="moderate"}function isMl(s){return s==="mild"}
+
+// Worst severity for cross weight decisions
+var phases=[{h:eH,s:eSev},{h:cH,s:cSev},{h:xH,s:xSev}].filter(function(p){return p.h!=="Neutral"});
+var worstSev="mild";phases.forEach(function(p){if(p.s==="severe")worstSev="severe";else if(p.s==="moderate"&&worstSev!=="severe")worstSev="moderate"});
+
+// Summary card
+h+='<div class="card"><div class="card-hdr"><span style="font-size:20px">🏎️</span><h3>Full Corner Analysis <span style="font-size:14px;color:var(--text-dim)">('+c.name+')</span></h3></div>';
+h+='<div style="display:flex;gap:10px;margin-bottom:20px;position:relative;z-index:1">';
+[{l:"Entry",v:eH,s:eSev},{l:"Center",v:cH,s:cSev},{l:"Exit",v:xH,s:xSev}].forEach(function(p){
+var col=p.v==="Loose"?"var(--red)":p.v==="Tight"?"var(--white)":"var(--grey)";
+var sevCol=p.v==="Neutral"?"":SEV[p.s]?SEV[p.s].color:"";
+h+='<div style="flex:1;padding:14px 10px;background:var(--card-lit);text-align:center;border-bottom:3px solid '+col+'"><div style="font-family:Oswald;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--grey-dark)">'+p.l+'</div><div style="font-family:Russo One;font-size:16px;color:'+col+';margin-top:6px">'+p.v+'</div>'+(p.v!=="Neutral"?'<div style="font-family:Barlow Condensed;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:'+sevCol+';margin-top:4px">'+SEV[p.s].icon+" "+p.s+'</div>':"")+'</div>'});
+h+='</div>';
+
+var tips=[];
+var looseCount=(eH==="Loose"?1:0)+(cH==="Loose"?1:0)+(xH==="Loose"?1:0);
+var tightCount=(eH==="Tight"?1:0)+(cH==="Tight"?1:0)+(xH==="Tight"?1:0);
+
+// === CROSS WEIGHT — the universal lever ===
+if(looseCount>=2){tips.push({a:"Cross Weight — Increase",t:"The car is loose through "+looseCount+" phases. Cross weight is your biggest lever. Increase "+(worstSev==="severe"?"0.5–1.0%":worstSev==="moderate"?"0.3–0.5%":"0.2–0.3%")+". This loads the LR/RF diagonal and plants the car."});}
+else if(tightCount>=2){tips.push({a:"Cross Weight — Decrease",t:"The car is tight through "+tightCount+" phases. Decrease cross weight "+(worstSev==="severe"?"0.5–1.0%":worstSev==="moderate"?"0.3–0.5%":"0.2–0.3%")+". This frees the car to rotate."});}
+
+// === ENTRY-SPECIFIC ===
+if(eH==="Loose"){
+  if(isLMS||isSS)tips.push({a:"Brake Balance Bar — Increase",t:"Loose on entry means the rear is light under braking. Increase brake balance "+(isSv(eSev)?"2-3%":isMd(eSev)?"1-2%":"0.5-1%")+" toward the front to keep weight on the nose and stabilize the rear."});
+  if(isLMS)tips.push({a:"Front Bump Stiffness — Increase",t:"Stiffer front bump resists nose dive under braking, keeping more weight on the rear wheels during turn-in. Go up "+(isSv(eSev)?"3-5":"2-3")+" clicks."});
+  if(isLMS)tips.push({a:"Front Spring Rate (RF) — Stiffen",t:"A stiffer RF spring holds the right-front corner up under braking, which transfers more load to the rear through the transition. Try going up "+(isSv(eSev)?"50-75":"25-50")+" lbs/in."});
+  if(isSS||isMS)tips.push({a:"Front Stagger — Increase",t:"Larger RF adds understeer on deceleration and turn-in. This stabilizes the entry."});
+}
+if(eH==="Tight"){
+  if(isLMS||isSS)tips.push({a:"Brake Balance Bar — Decrease",t:"Tight on entry means too much front load under braking. Decrease "+(isSv(eSev)?"2-3%":isMd(eSev)?"1-2%":"0.5-1%")+" to shift bias rearward and help the car rotate."});
+  if(isLMS)tips.push({a:"Front Bump Stiffness — Decrease",t:"Softer front bump lets the nose dive more under braking, loading the front tires and helping them grip for turn-in. Go down "+(isSv(eSev)?"3-5":"2-3")+" clicks."});
+  if(isLMS)tips.push({a:"Front Spring Rate (LF) — Soften",t:"A softer LF spring lets the left-front compress more on turn-in, putting more load on that tire and helping initial rotation. Try going down "+(isSv(eSev)?"50-75":"25-50")+" lbs/in."});
+  if(isSS||isMS)tips.push({a:"Front Stagger — Decrease",t:"Smaller RF helps the car turn in more aggressively."});
+  if(isLMS)tips.push({a:"Front Caster Split",t:"Run less caster on the LF than the RF. This makes the car pull left and helps it enter the corner."});
+}
+
+// === CENTER-SPECIFIC ===
+if(cH==="Loose"){
+  if(isLMS){tips.push({a:"RR Spring Rate — Increase",t:"The LMS has no rear sway bar, so the RR spring is your main tool for mid-corner rear grip. Stiffen it "+(isSv(cSev)?"50-100":"25-50")+" lbs/in to plant the rear."});
+  tips.push({a:"Track Bar Height — Lower Both",t:"Lowering both left and right track bar mounts tightens the car through the center. Start with 0.25 inch at a time."});}
+  if(isSS){tips.push({a:"RR Leaf Spring Rate — Stiffen",t:"Stiffer rear spring plants the RR through mid-corner."});
+  tips.push({a:"Rear Stagger — Decrease",t:"Smaller RR circumference adds stability through the center."});}
+  if(isMS)tips.push({a:"RR Spring Rate — Increase",t:"Stiffer RR plants the rear through mid-corner. Go up 25-50 lbs/in."});
+  tips.push({a:"Tire Pressures — Lower RR",t:"Drop RR cold pressure "+(isSv(cSev)?"1-2":"0.5–1")+" psi. More contact patch = more grip on the tire that matters most in the center."});
+}
+if(cH==="Tight"){
+  if(isLMS){tips.push({a:"RR Spring Rate — Soften",t:"A softer RR spring allows more rear weight transfer, freeing the car to rotate through the center. Drop "+(isSv(cSev)?"50-100":"25-50")+" lbs/in."});
+  tips.push({a:"Track Bar Height — Raise Both",t:"Raising both track bar mounts frees the car through center. Go up 0.25 inch at a time."});
+  tips.push({a:"Front ARB Diameter — Increase",t:"A bigger front sway bar increases front roll stiffness, which pushes the front through the corner and helps the car rotate."});}
+  if(isSS){tips.push({a:"Rear Leaf Spring Rate — Soften",t:"Softer rear springs let the car rotate through the center."});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR circumference helps the car rotate mid-corner."});
+  tips.push({a:"Sway Bar Size — Increase",t:"Bigger front bar pushes the front through the corner."});}
+  if(isMS){tips.push({a:"Rear Spring Rates — Soften",t:"Softer rear springs free the car to rotate."});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR helps rotation."});}
+  tips.push({a:"Tire Pressures — Lower Front",t:"Drop front cold pressures "+(isSv(cSev)?"1-2":"0.5–1")+" psi. More grip on the front tires helps them work through the center."});
+}
+
+// === EXIT-SPECIFIC ===
+if(xH==="Loose"){
+  if(isLMS){tips.push({a:"Rear Bump Stiffness — Increase",t:"The rear is stepping out on throttle. Stiffer rear bump prevents the rear axle from squatting too fast on acceleration. Go up "+(isSv(xSev)?"4-6":"2-3")+" clicks."});
+  tips.push({a:"Front Rebound (LF) — Increase",t:"Stiffer LF rebound holds the left-front down on throttle, preventing the front from lifting and shifting too much weight to the rear. Go up "+(isSv(xSev)?"3-5":"2-3")+" clicks."});
+  tips.push({a:"RR Track Bar Height — Lower",t:"Lowering the right-side track bar mount increases rear grip on exit."});
+  tips.push({a:"Truck Arm Mount — Lower",t:"Lowering the truck arm mount increases rear bite off the corner."});}
+  if(isSS){tips.push({a:"RR Leaf Spring Rate — Increase",t:"Stiffer rear plants the car on exit."});
+  tips.push({a:"Rear Stagger — Decrease",t:"Smaller RR stabilizes the exit."});}
+  if(isMS)tips.push({a:"RR Spring Rate — Increase",t:"Stiffer RR prevents the rear from stepping out on throttle."});
+  tips.push({a:"Tire Pressures — Lower Rear",t:"Drop LR and RR cold pressures "+(isSv(xSev)?"1-2":"0.5–1")+" psi for more rear traction off the corner."});
+}
+if(xH==="Tight"){
+  if(isLMS){tips.push({a:"Rear Bump Stiffness — Decrease",t:"The car won't drive off the corner. Softer rear bump allows the rear to squat more on throttle, transferring weight to the rear tires. Go down "+(isSv(xSev)?"4-6":"2-3")+" clicks."});
+  tips.push({a:"Front Rebound (RF) — Increase",t:"Stiffer RF rebound holds the right-front down as you unwind the steering, keeping load on the front and freeing the rear. Go up "+(isSv(xSev)?"3-5":"2-3")+" clicks."});
+  tips.push({a:"RR Track Bar Height — Raise",t:"Raising the right-side mount frees the car on exit."});
+  tips.push({a:"RR Spring Rate — Soften",t:"A softer RR lets the rear work on exit. Drop "+(isSv(xSev)?"50-75":"25-50")+" lbs/in."});}
+  if(isSS){tips.push({a:"Rear Leaf Spring Rate — Soften",t:"Softer rear lets the car drive off."});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR helps rotate off the corner."});}
+  if(isMS){tips.push({a:"Rear Spring Rates — Soften",t:"Softer rear springs free the exit."});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR helps rotation off the corner."});}
+  tips.push({a:"Tire Pressures — Raise Rear",t:"Raise rear cold pressures 0.5–1 psi to reduce rear grip slightly and let the car rotate off."});
+}
+
+// === BUMPSTOPS & PACKERS (LMS only) ===
+if(isLMS){
+  if(eH==="Loose"&&(cH==="Neutral"||cH==="Tight"))tips.push({a:"RF Bumpstop/Packer",t:"Adding an RF packer stabilizes the entry without affecting mid-corner or exit. The packer limits RF travel under braking, keeping the car more consistent through the transition."});
+  if(eH==="Tight"&&(cH==="Neutral"||cH==="Loose"))tips.push({a:"LF Bumpstop/Packer",t:"Adding an LF packer helps free the entry by limiting LF compression. This shifts load differently during turn-in without affecting mid-corner balance."});
+  if(eH!=="Neutral"||cH!=="Neutral")tips.push({a:"Bumpstop Rates",t:"Front bumpstop rates control what happens when the suspension bottoms out under heavy load. Softer bumpstops = more progressive load transfer = gentler transitions. Stiffer bumpstops = more abrupt = sharper response. Adjust in small increments."});
+}
+
+// === CONTRADICTING PHASES (special handling) ===
+if(eH==="Tight"&&xH==="Loose"){
+  tips.push({a:"Classic Tight-Loose — Brake Balance + Exit Grip",t:"This is the most common combination. The car pushes on entry but steps out on exit. Fix the entry with brake balance (decrease 1-2%) and fix the exit with rear grip (cross weight up slightly, rear bump up if LMS). Don't use cross weight alone — it'll fix one and make the other worse."});
+}
+if(eH==="Loose"&&xH==="Tight"){
+  tips.push({a:"Loose-Tight — Rare but Fixable",t:"Loose entry with tight exit usually means brake balance is too far rearward and the rear suspension is too stiff. Increase brake balance 1-2% for entry, and soften the rear (bump stiffness or spring rate) for exit."});
+}
+
+// === FRONT SPRING RATE SUMMARY (all cars) ===
+if((eH==="Loose"||eH==="Tight")&&tips.length>0){
+  var softerSide=eH==="Tight"?"LF":"RF";
+  var stiffer=eH==="Loose"?"RF":"LF";
+  if(!isLMS){tips.push({a:"Front Spring Rate — "+stiffer+" Stiffer",t:"Stiffening the "+stiffer+" spring by 25-50 lbs/in helps address the "+eH.toLowerCase()+" entry condition by changing how load transfers during turn-in."});}
+}
+
+var tips=[];
+var looseCount=(eH==="Loose"?1:0)+(cH==="Loose"?1:0)+(xH==="Loose"?1:0);
+var tightCount=(eH==="Tight"?1:0)+(cH==="Tight"?1:0)+(xH==="Tight"?1:0);
+
+// === CROSS WEIGHT — the universal lever ===
+if(looseCount>=2){tips.push({a:"Cross Weight — Increase",t:"The car is loose through "+looseCount+" phases. Cross weight is your biggest lever. Increase "+(worstSev==="severe"?"0.5–1.0%":worstSev==="moderate"?"0.3–0.5%":"0.2–0.3%")+". This loads the LR/RF diagonal and plants the car.",p:10});}
+else if(tightCount>=2){tips.push({a:"Cross Weight — Decrease",t:"The car is tight through "+tightCount+" phases. Decrease cross weight "+(worstSev==="severe"?"0.5–1.0%":worstSev==="moderate"?"0.3–0.5%":"0.2–0.3%")+". This frees the car to rotate.",p:10});}
+
+// === ENTRY-SPECIFIC ===
+if(eH==="Loose"){
+  if(isLMS||isSS)tips.push({a:"Brake Balance Bar — Increase",t:"Loose on entry means the rear is light under braking. Increase brake balance "+(isSv(eSev)?"2-3%":isMd(eSev)?"1-2%":"0.5-1%")+" toward the front to keep weight on the nose and stabilize the rear.",p:9});
+  if(isLMS)tips.push({a:"Front Bump Stiffness — Increase",t:"Stiffer front bump resists nose dive under braking, keeping more weight on the rear wheels during turn-in. Go up "+(isSv(eSev)?"3-5":"2-3")+" clicks.",p:7});
+  if(isLMS)tips.push({a:"Front Spring Rate (RF) — Stiffen",t:"A stiffer RF spring holds the right-front corner up under braking, which transfers more load to the rear through the transition. Try going up "+(isSv(eSev)?"50-75":"25-50")+" lbs/in.",p:6});
+  if(isSS||isMS)tips.push({a:"Front Stagger — Increase",t:"Larger RF adds understeer on deceleration and turn-in. This stabilizes the entry.",p:7});
+}
+if(eH==="Tight"){
+  if(isLMS||isSS)tips.push({a:"Brake Balance Bar — Decrease",t:"Tight on entry means too much front load under braking. Decrease "+(isSv(eSev)?"2-3%":isMd(eSev)?"1-2%":"0.5-1%")+" to shift bias rearward and help the car rotate.",p:9});
+  if(isLMS)tips.push({a:"Front Bump Stiffness — Decrease",t:"Softer front bump lets the nose dive more under braking, loading the front tires and helping them grip for turn-in. Go down "+(isSv(eSev)?"3-5":"2-3")+" clicks.",p:7});
+  if(isLMS)tips.push({a:"Front Spring Rate (LF) — Soften",t:"A softer LF spring lets the left-front compress more on turn-in, putting more load on that tire and helping initial rotation. Try going down "+(isSv(eSev)?"50-75":"25-50")+" lbs/in.",p:6});
+  if(isSS||isMS)tips.push({a:"Front Stagger — Decrease",t:"Smaller RF helps the car turn in more aggressively.",p:7});
+  if(isLMS)tips.push({a:"Front Caster Split",t:"Run less caster on the LF than the RF. This makes the car pull left and helps it enter the corner.",p:4});
+}
+
+// === CENTER-SPECIFIC ===
+if(cH==="Loose"){
+  if(isLMS){tips.push({a:"RR Spring Rate — Increase",t:"The LMS has no rear sway bar, so the RR spring is your main tool for mid-corner rear grip. Stiffen it "+(isSv(cSev)?"50-100":"25-50")+" lbs/in to plant the rear.",p:8});
+  tips.push({a:"Track Bar Height — Lower Both",t:"Lowering both left and right track bar mounts tightens the car through the center. Start with 0.25 inch at a time.",p:6});}
+  if(isSS){tips.push({a:"RR Leaf Spring Rate — Stiffen",t:"Stiffer rear spring plants the RR through mid-corner.",p:8});
+  tips.push({a:"Rear Stagger — Decrease",t:"Smaller RR circumference adds stability through the center.",p:6});}
+  if(isMS)tips.push({a:"RR Spring Rate — Increase",t:"Stiffer RR plants the rear through mid-corner. Go up 25-50 lbs/in.",p:8});
+  tips.push({a:"Tire Pressures — Lower RR",t:"Drop RR cold pressure "+(isSv(cSev)?"1-2":"0.5–1")+" psi. More contact patch = more grip on the tire that matters most in the center.",p:5});
+}
+if(cH==="Tight"){
+  if(isLMS){tips.push({a:"RR Spring Rate — Soften",t:"A softer RR spring allows more rear weight transfer, freeing the car to rotate through the center. Drop "+(isSv(cSev)?"50-100":"25-50")+" lbs/in.",p:8});
+  tips.push({a:"Track Bar Height — Raise Both",t:"Raising both track bar mounts frees the car through center. Go up 0.25 inch at a time.",p:6});
+  tips.push({a:"Front ARB Diameter — Increase",t:"A bigger front sway bar increases front roll stiffness, which pushes the front through the corner and helps the car rotate.",p:5});}
+  if(isSS){tips.push({a:"Rear Leaf Spring Rate — Soften",t:"Softer rear springs let the car rotate through the center.",p:8});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR circumference helps the car rotate mid-corner.",p:6});
+  tips.push({a:"Sway Bar Size — Increase",t:"Bigger front bar pushes the front through the corner.",p:5});}
+  if(isMS){tips.push({a:"Rear Spring Rates — Soften",t:"Softer rear springs free the car to rotate.",p:8});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR helps rotation.",p:6});}
+  tips.push({a:"Tire Pressures — Lower Front",t:"Drop front cold pressures "+(isSv(cSev)?"1-2":"0.5–1")+" psi. More grip on the front tires helps them work through the center.",p:5});
+}
+
+// === EXIT-SPECIFIC ===
+if(xH==="Loose"){
+  if(isLMS){tips.push({a:"Rear Bump Stiffness — Increase",t:"The rear is stepping out on throttle. Stiffer rear bump prevents the rear axle from squatting too fast on acceleration. Go up "+(isSv(xSev)?"4-6":"2-3")+" clicks.",p:8});
+  tips.push({a:"Front Rebound (LF) — Increase",t:"Stiffer LF rebound holds the left-front down on throttle, preventing the front from lifting and shifting too much weight to the rear. Go up "+(isSv(xSev)?"3-5":"2-3")+" clicks.",p:6});
+  tips.push({a:"RR Track Bar Height — Lower",t:"Lowering the right-side track bar mount increases rear grip on exit.",p:5});
+  tips.push({a:"Truck Arm Mount — Lower",t:"Lowering the truck arm mount increases rear bite off the corner.",p:4});}
+  if(isSS){tips.push({a:"RR Leaf Spring Rate — Increase",t:"Stiffer rear plants the car on exit.",p:8});
+  tips.push({a:"Rear Stagger — Decrease",t:"Smaller RR stabilizes the exit.",p:6});}
+  if(isMS)tips.push({a:"RR Spring Rate — Increase",t:"Stiffer RR prevents the rear from stepping out on throttle.",p:8});
+  tips.push({a:"Tire Pressures — Lower Rear",t:"Drop LR and RR cold pressures "+(isSv(xSev)?"1-2":"0.5–1")+" psi for more rear traction off the corner.",p:5});
+}
+if(xH==="Tight"){
+  if(isLMS){tips.push({a:"Rear Bump Stiffness — Decrease",t:"The car won't drive off the corner. Softer rear bump allows the rear to squat more on throttle, transferring weight to the rear tires. Go down "+(isSv(xSev)?"4-6":"2-3")+" clicks.",p:8});
+  tips.push({a:"Front Rebound (RF) — Increase",t:"Stiffer RF rebound holds the right-front down as you unwind the steering, keeping load on the front and freeing the rear. Go up "+(isSv(xSev)?"3-5":"2-3")+" clicks.",p:6});
+  tips.push({a:"RR Track Bar Height — Raise",t:"Raising the right-side mount frees the car on exit.",p:5});
+  tips.push({a:"RR Spring Rate — Soften",t:"A softer RR lets the rear work on exit. Drop "+(isSv(xSev)?"50-75":"25-50")+" lbs/in.",p:7});}
+  if(isSS){tips.push({a:"Rear Leaf Spring Rate — Soften",t:"Softer rear lets the car drive off.",p:8});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR helps rotate off the corner.",p:6});}
+  if(isMS){tips.push({a:"Rear Spring Rates — Soften",t:"Softer rear springs free the exit.",p:8});
+  tips.push({a:"Rear Stagger — Increase",t:"Larger RR helps rotation off the corner.",p:6});}
+  tips.push({a:"Tire Pressures — Raise Rear",t:"Raise rear cold pressures 0.5–1 psi to reduce rear grip slightly and let the car rotate off.",p:5});
+}
+
+// === BUMPSTOPS & PACKERS (LMS only) ===
+if(isLMS){
+  if(eH==="Loose"&&(cH==="Neutral"||cH==="Tight"))tips.push({a:"RF Bumpstop/Packer",t:"Adding an RF packer stabilizes the entry without affecting mid-corner or exit. The packer limits RF travel under braking, keeping the car more consistent through the transition.",p:5});
+  if(eH==="Tight"&&(cH==="Neutral"||cH==="Loose"))tips.push({a:"LF Bumpstop/Packer",t:"Adding an LF packer helps free the entry by limiting LF compression. This shifts load differently during turn-in without affecting mid-corner balance.",p:5});
+  if(eH!=="Neutral"||cH!=="Neutral")tips.push({a:"Bumpstop Rates",t:"Front bumpstop rates control what happens when the suspension bottoms out under heavy load. Softer bumpstops = more progressive load transfer = gentler transitions. Stiffer bumpstops = more abrupt = sharper response. Adjust in small increments.",p:3});
+}
+
+// === CONTRADICTING PHASES ===
+if(eH==="Tight"&&xH==="Loose"){
+  tips.push({a:"Classic Tight-Loose — Brake Balance + Exit Grip",t:"This is the most common combination. The car pushes on entry but steps out on exit. Fix the entry with brake balance (decrease 1-2%) and fix the exit with rear grip (cross weight up slightly, rear bump up if LMS). Don't use cross weight alone — it'll fix one and make the other worse.",p:10});
+}
+if(eH==="Loose"&&xH==="Tight"){
+  tips.push({a:"Loose-Tight — Rare but Fixable",t:"Loose entry with tight exit usually means brake balance is too far rearward and the rear suspension is too stiff. Increase brake balance 1-2% for entry, and soften the rear (bump stiffness or spring rate) for exit.",p:10});
+}
+
+// === FRONT SPRING RATE SUMMARY (SS/MS) ===
+if((eH==="Loose"||eH==="Tight")&&!isLMS){
+  var stiffer=eH==="Loose"?"RF":"LF";
+  tips.push({a:"Front Spring Rate — "+stiffer+" Stiffer",t:"Stiffening the "+stiffer+" spring by 25-50 lbs/in helps address the "+eH.toLowerCase()+" entry condition by changing how load transfers during turn-in.",p:6});
+}
+
+// === TOP 3 PICKS ===
+var sorted=tips.slice().sort(function(a,b){return b.p-a.p});
+var top3=sorted.slice(0,3);
+h+='<div style="margin-bottom:24px;position:relative;z-index:1"><div style="font-family:Russo One;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:10px"><span style="font-size:18px">🏆</span> Top 3 — Do These First</div>';
+top3.forEach(function(s,i){
+var cols=["var(--red)","var(--white)","var(--grey)"];
+h+='<div style="padding:18px 20px;background:linear-gradient(90deg,rgba(204,0,0,'+(i===0?'0.08':i===1?'0.04':'0.02')+'),transparent);border-left:4px solid '+cols[i]+';margin-bottom:8px;animation:fadeUp .4s ease '+(i*.12)+'s both"><div style="display:flex;gap:12px;align-items:baseline"><span style="font-family:Russo One;font-size:22px;color:'+cols[i]+'">#'+(i+1)+'</span><span style="font-family:Oswald;font-size:17px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white)">'+s.a+'</span></div><p style="color:#bbb;font-size:14.5px;line-height:1.75;margin-top:8px;margin-left:34px;font-family:Rajdhani;font-weight:500">'+s.t+'</p></div>'});
+h+='</div>';
+
+// === ALL RECOMMENDATIONS ===
+h+='<details style="margin-bottom:18px"><summary style="font-family:Oswald;font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--grey-dark);cursor:pointer;padding:14px 0">View All '+tips.length+' Recommendations</summary><div style="padding-top:10px">';
+tips.forEach(function(s,i){
+h+='<div class="sug" style="animation:fadeUp .3s ease '+(i*.03)+'s both"><div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px"><span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="adj">'+s.a+'</span></div><p class="tip">'+s.t+'</p></div>'});
+h+='</div></details>';
+h+='</div>';
+}
 
 // === GEARING ===
 if(S.tab==="gearing"&&gOk){var t=TRACKS.find(x=>x.n===S.track);if(t){
@@ -508,7 +727,7 @@ h+='<a href="https://paypal.me/BransonA" target="_blank" rel="noopener" style="d
 h+='<p class="ftr">The Big Chief · Powered by Allison Racing</p><div class="ftr-bar"></div>';
 $("results").innerHTML=h}
 
-function resetAll(){S.corner="";S.handling="";S.sev="";S.track="";S.chip="";S.show=false;$("track-sel").value="";document.querySelectorAll(".tire-input").forEach(function(inp){inp.value=""});render();window.scrollTo({top:0,behavior:"smooth"})}
+function resetAll(){S.hEntry="";S.hCenter="";S.hExit="";S.sEntry="";S.sCenter="";S.sExit="";S.track="";S.chip="";S.show=false;$("track-sel").value="";document.querySelectorAll(".tire-input").forEach(function(inp){inp.value=""});render();window.scrollTo({top:0,behavior:"smooth"})}
 
 // ═══ SESSION LOGGER ═══════════════════════════════════════════
 // Populate log track dropdown
